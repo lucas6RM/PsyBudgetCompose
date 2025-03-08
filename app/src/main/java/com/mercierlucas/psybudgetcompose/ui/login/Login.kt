@@ -1,6 +1,5 @@
 package com.mercierlucas.psybudgetcompose.ui.login
 
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,52 +7,71 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.OutlinedTextField
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import com.mercierlucas.feedarticles.Utils.showToast
+import com.mercierlucas.psybudgetcompose.data.network.requests.dtos.LoginDto
 import com.mercierlucas.psybudgetcompose.ui.custom.ButtonCustom
 import com.mercierlucas.psybudgetcompose.ui.custom.HeaderCustom
+import com.mercierlucas.psybudgetcompose.ui.custom.OutlinedTextFieldCustom
+import com.mercierlucas.psybudgetcompose.ui.navigation.Screen
 import com.mercierlucas.psybudgetcompose.ui.theme.MyBlue
 
 @Composable
-fun LoginScreen(){
-    val viewModel: LoginViewModel = viewModel()
-    val email by viewModel.emailStateFlow.collectAsState()
-    val password by viewModel.passwordStateFlow.collectAsState()
+fun LoginScreen(navController: NavHostController, loginViewModel: LoginViewModel) {
 
-    LoginView(
-        email,
-        password,
-        { viewModel.setEmailStateFlow(it) },
-        { viewModel.setPasswordStateFlow(it) },
-        { viewModel.goToRegisterScreen() },
-        { viewModel.goToMainMenuScreen() }
-    )
+    val isProgressBarActive by loginViewModel.isProgressBarDisplayedStateFlow.collectAsState()
 
     val context = LocalContext.current
 
+
+    LoginView(
+        isProgressBarActive,
+        onClickCreateNewAccount = { loginViewModel.goToRegisterScreen() },
+        onClickConfirmButton = { loginDto ->
+            with(loginViewModel){
+                setIsProgressBarDisplayed(true)
+                validateInputs(loginDto)
+            }
+        })
+
     LaunchedEffect(true) {
-        viewModel.goToRegister.collect {
-            if(it)
-                Toast.makeText(context, "Aller vers register", Toast.LENGTH_LONG).show() }
+        loginViewModel.messageSharedFlow.collect { message ->
+            context.showToast(message)
+        }
     }
 
     LaunchedEffect(true) {
-        viewModel.goToMainMenu.collect {
-            if(it)
-                Toast.makeText(context, "Aller vers main menu", Toast.LENGTH_LONG).show()
+        loginViewModel.goToRegisterSharedFlow.collect { yes ->
+            if(yes)
+                navController.navigate(Screen.Register.route)
+        }
+    }
+
+    LaunchedEffect(true) {
+        loginViewModel.goToMainMenuSharedFlow.collect { yes ->
+            if(yes)
+                navController.navigate(Screen.MainMenu.route){
+                    popUpTo(Screen.Login.route){
+                        inclusive = true
+                    }
+                }
         }
     }
 
@@ -61,58 +79,61 @@ fun LoginScreen(){
 
 @Composable
 fun LoginView(
-    email: String,
-    password: String,
-    emailSetter: (String) -> Unit,
-    passwordSetter: (String) -> Unit,
-    goToRegisterScreen: () -> Unit,
-    goToMainMenuScreen: () -> Unit
+    isProgressBarActive: Boolean,
+    onClickCreateNewAccount: () -> Unit,
+    onClickConfirmButton: (LoginDto) -> Unit
 ) {
+    var email by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
 
-Column {
+    Column {
 
-    HeaderCustom("Login Page")
+        HeaderCustom("Login Page")
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceEvenly,
-        modifier = Modifier
-            .fillMaxWidth()
-            .weight(1F)
-    )
-    {
-
-
-        OutlinedTextField(
-            value = email,
-            onValueChange = emailSetter,
-            label = { Text(text = "Enter an email")})
-
-        OutlinedTextField(
-            value = password,
-            onValueChange = passwordSetter,
-            label = { Text(text = "Enter a password")},
-            visualTransformation = PasswordVisualTransformation(),
-            singleLine = true)
-
-
-        ButtonCustom(onClick = {
-            println("Email : $email \n Password : $password")
-            goToMainMenuScreen.invoke()
-        })
-
-        Row (){
-            Text(text = "No Account ?")
-            Spacer(modifier = Modifier.padding(horizontal = 20.dp))
-
-            Text(
-                text = "Create an account",
-                color = MyBlue,
-                modifier = Modifier.clickable { goToRegisterScreen.invoke()}
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceEvenly,
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1F)
+        )
+        {
+            OutlinedTextFieldCustom(
+                value = email,
+                onValueChange = { email = it },
+                labelText = "Email (*)"
             )
+
+            OutlinedTextFieldCustom(
+                value = password,
+                onValueChange = { password = it },
+                labelText = "Password (*)",
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                visualTransformation = PasswordVisualTransformation()
+            )
+
+
+            ButtonCustom {
+                println("Email : $email \n Password : $password")
+                onClickConfirmButton.invoke(LoginDto(email,password))
+            }
+
+            Row (){
+                Text(text = "No Account ?")
+                Spacer(modifier = Modifier.padding(horizontal = 20.dp))
+
+                Text(
+                    text = "Create an account",
+                    color = MyBlue,
+                    modifier = Modifier.clickable {
+                        onClickCreateNewAccount.invoke()
+                    }
+                )
+            }
+            if (isProgressBarActive)
+                CircularProgressIndicator()
         }
     }
-}
 
 
 
@@ -121,5 +142,5 @@ Column {
 @Preview(showBackground = true)
 @Composable
 fun LoginPreview() {
-    LoginScreen()
+    LoginView(true, {}) {}
 }

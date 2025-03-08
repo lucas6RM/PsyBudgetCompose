@@ -1,4 +1,4 @@
-package com.mercierlucas.psybudgetcompose
+package com.mercierlucas.psybudgetcompose.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -6,13 +6,14 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.mercierlucas.psybudgetcompose.ui.login.LoginScreen
+import com.mercierlucas.psybudgetcompose.ui.navigation.MyNavigation
+import com.mercierlucas.psybudgetcompose.ui.splash.SplashScreen
 import com.mercierlucas.psybudgetcompose.ui.theme.PsyBudgetComposeTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,26 +24,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    //Greeting("Android")
-                    LoginScreen()
+                    MyNavigation()
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    PsyBudgetComposeTheme {
-        Greeting("Android")
     }
 }

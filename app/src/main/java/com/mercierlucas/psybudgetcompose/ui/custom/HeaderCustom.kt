@@ -24,7 +24,7 @@ fun HeaderCustom(title: String) {
             modifier = Modifier
                 .background(Color.Black)
                 .fillMaxWidth()
-                .padding(3.dp)
+                .padding(1.dp)
         ) {}
     }
 }
