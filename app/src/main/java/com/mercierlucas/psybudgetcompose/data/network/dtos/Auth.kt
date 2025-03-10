@@ -1,5 +1,6 @@
-package com.mercierlucas.psybudgetcompose.data.network.requests.dtos
+package com.mercierlucas.psybudgetcompose.data.network.dtos
 
+import com.mercierlucas.psybudgetcompose.data.model.UserDto
 import com.squareup.moshi.Json
 
 
@@ -27,4 +28,11 @@ data class LoginDto(
     val email: String,
     @Json(name = "password")
     val password: String
+)
+
+data class AuthenticatedResponseDto(
+    @Json(name = "token")
+    val token: String,
+    @Json(name = "user")
+    val user: UserDto
 )

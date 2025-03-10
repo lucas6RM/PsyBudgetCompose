@@ -7,5 +7,6 @@ object ApiRoutes {
     const val LOGIN_USER = "auth/login"
     const val REGISTER_USER = "auth/register"
     const val GET_ALL_PATIENTS = "patients"
+    const val CREATE_PATIENT = "patients/new"
 
 }

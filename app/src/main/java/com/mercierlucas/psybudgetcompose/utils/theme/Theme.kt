@@ -1,4 +1,4 @@
-package com.mercierlucas.psybudgetcompose.ui.theme
+package com.mercierlucas.psybudgetcompose.utils.theme
 
 import android.app.Activity
 import android.os.Build

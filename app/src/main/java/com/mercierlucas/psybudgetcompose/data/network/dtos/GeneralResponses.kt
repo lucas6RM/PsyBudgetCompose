@@ -1,16 +1,11 @@
-package com.mercierlucas.psybudgetcompose.data.network.responses.dtos
+package com.mercierlucas.psybudgetcompose.data.network.dtos
 
 import android.os.Parcelable
-import com.mercierlucas.psybudgetcompose.data.entities.UserDto
+import com.mercierlucas.psybudgetcompose.data.model.UserDto
 import com.squareup.moshi.Json
 import kotlinx.parcelize.Parcelize
 
-data class AuthenticatedResponseDto(
-    @Json(name = "token")
-    val token: String,
-    @Json(name = "user")
-    val user: UserDto
-)
+
 
 @Parcelize
 data class ErrorResponseDto(

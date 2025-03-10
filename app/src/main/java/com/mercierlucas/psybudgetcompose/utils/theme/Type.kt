@@ -1,4 +1,4 @@
-package com.mercierlucas.psybudgetcompose.ui.theme
+package com.mercierlucas.psybudgetcompose.utils.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

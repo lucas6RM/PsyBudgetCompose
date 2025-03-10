@@ -23,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.mercierlucas.feedarticles.Utils.showToast
-import com.mercierlucas.psybudgetcompose.data.network.requests.dtos.RegisterDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.RegisterDto
 import com.mercierlucas.psybudgetcompose.ui.custom.ButtonCustom
 import com.mercierlucas.psybudgetcompose.ui.custom.HeaderCustom
 import com.mercierlucas.psybudgetcompose.ui.custom.OutlinedTextFieldCustom
@@ -63,7 +63,7 @@ fun RegisterScreen(navController: NavHostController, registerViewModel: Register
 @Composable
 fun RegisterView(
     isProgressBarActive: Boolean,
-    onClickConfirmButton: (String,RegisterDto) -> Unit
+    onClickConfirmButton: (String, RegisterDto) -> Unit
 ) {
 
     var firstName by remember { mutableStateOf("") }
@@ -76,7 +76,10 @@ fun RegisterView(
     var postalCode by remember { mutableStateOf("") }
     var city by remember { mutableStateOf("") }
 
-    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally)  {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
 
         HeaderCustom("Register Page")
 

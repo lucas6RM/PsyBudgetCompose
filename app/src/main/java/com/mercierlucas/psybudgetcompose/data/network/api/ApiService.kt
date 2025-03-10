@@ -1,9 +1,10 @@
 package com.mercierlucas.psybudgetcompose.data.network.api
 
-import com.mercierlucas.psybudgetcompose.data.entities.PatientDto
-import com.mercierlucas.psybudgetcompose.data.network.requests.dtos.LoginDto
-import com.mercierlucas.psybudgetcompose.data.network.requests.dtos.RegisterDto
-import com.mercierlucas.psybudgetcompose.data.network.responses.dtos.AuthenticatedResponseDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.LoginDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.PatientDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.RegisterDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.AuthenticatedResponseDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.CreatePatientDto
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -26,5 +27,11 @@ interface ApiService {
     suspend fun getAllPatients(
         @Header("Authorization") token : String?,
     ) : Response<List<PatientDto>>?
+
+    @POST(ApiRoutes.CREATE_PATIENT)
+    suspend fun createPatient(
+        @Header("Authorization") token : String?,
+        @Body createPatientDto: CreatePatientDto
+    ) : Response<PatientDto>?
 
 }

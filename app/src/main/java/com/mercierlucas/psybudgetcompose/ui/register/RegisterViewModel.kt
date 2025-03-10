@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mercierlucas.psybudgetcompose.data.local.MyPrefs
 import com.mercierlucas.psybudgetcompose.data.network.api.ApiService
-import com.mercierlucas.psybudgetcompose.data.network.requests.dtos.RegisterDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.RegisterDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -53,6 +53,7 @@ class RegisterViewModel @Inject constructor(
 
     private fun registerIn(registerDto: RegisterDto) {
         viewModelScope.launch {
+            setIsProgressBarDisplayed(true)
             delay(1000)
             try {
                 val responseRegister = withContext(Dispatchers.IO) {
@@ -98,6 +99,8 @@ class RegisterViewModel @Inject constructor(
                     && email.isNotEmpty()){
                     registerIn(registerDto)
                 }
+                else
+                    displayToast("Some required fields are empty")
             else
                 displayToast("Confirmed password wrong")
         }

@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import com.mercierlucas.psybudgetcompose.ui.login.LoginScreen
 import com.mercierlucas.psybudgetcompose.ui.navigation.MyNavigation
 import com.mercierlucas.psybudgetcompose.ui.splash.SplashScreen
-import com.mercierlucas.psybudgetcompose.ui.theme.PsyBudgetComposeTheme
+import com.mercierlucas.psybudgetcompose.utils.theme.PsyBudgetComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.mercierlucas.psybudgetcompose.ui.login
+package com.mercierlucas.psybudgetcompose.ui.patients.create
 
 import android.content.ContentValues
 import android.util.Log
@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mercierlucas.psybudgetcompose.data.local.MyPrefs
 import com.mercierlucas.psybudgetcompose.data.network.api.ApiService
-import com.mercierlucas.psybudgetcompose.data.network.dtos.LoginDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.CreatePatientDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.RegisterDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -20,22 +21,19 @@ import java.net.ConnectException
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+class CreatePatientViewModel @Inject constructor(
     private val myPrefs: MyPrefs,
     private val apiService: ApiService
-): ViewModel() {
-
+) : ViewModel() {
 
     private val _isProgressBarDisplayedStateFlow = MutableStateFlow(false)
     val isProgressBarDisplayedStateFlow = _isProgressBarDisplayedStateFlow.asStateFlow()
 
-
-    private val _goToMainMenuSharedFlow = MutableSharedFlow<Boolean>()
-    val goToMainMenuSharedFlow = _goToMainMenuSharedFlow.asSharedFlow()
-
     private val _messageSharedFlow = MutableSharedFlow<String>()
     val messageSharedFlow = _messageSharedFlow.asSharedFlow()
 
+    private val _goToMainMenuSharedFlow = MutableSharedFlow<Boolean>()
+    val goToMainMenuSharedFlow = _goToMainMenuSharedFlow.asSharedFlow()
 
     fun setIsProgressBarDisplayed(boolean: Boolean){
         _isProgressBarDisplayedStateFlow.value = boolean
@@ -48,41 +46,43 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-
     fun goToMainMenuScreen(isResponseCorrectFromServer: Boolean){
         viewModelScope.launch {
             _goToMainMenuSharedFlow.emit(isResponseCorrectFromServer)
         }
     }
 
-    private fun signIn(loginDto: LoginDto) {
+    fun validateInputs(createPatientDto: CreatePatientDto) {
+        with(createPatientDto){
+            if (firstName.isNotEmpty() && lastName.isNotEmpty() && phoneNumber.isNotEmpty()){
+                addNewPatient(createPatientDto)
+            }
+            else
+                displayToast("Some required fields are empty")
+        }
+    }
+
+    private fun addNewPatient(createPatientDto: CreatePatientDto) {
         viewModelScope.launch {
             setIsProgressBarDisplayed(true)
             delay(1000)
             try {
-            val responseLogin = withContext(Dispatchers.IO) {
-                apiService.logUserInAndGetToken(loginDto)
-            }
+                val responseCreatePatient = withContext(Dispatchers.IO) {
+                    apiService.createPatient(myPrefs.token,createPatientDto)
+                }
 
-                val body = responseLogin?.body()
+                val body = responseCreatePatient?.body()
                 when{
-                    responseLogin == null -> Log.e(ContentValues.TAG,"Pas de reponse du serveur")
-                    responseLogin.isSuccessful && body != null ->{
-                        myPrefs.apply {
-                            token = "Bearer ${body.token}"
-                            userId = body.user.id
-                            userFirstName = body.user.firstName
-                            userLastName = body.user.lastName
-                        }
-                        displayToast("User logged")
+                    responseCreatePatient == null -> Log.e(ContentValues.TAG,"Pas de reponse du serveur")
+                    responseCreatePatient.isSuccessful && body != null ->{
+                        displayToast("New patient added : ${body.firstName} ${body.lastName}")
                         goToMainMenuScreen(true)
                     }
                     else -> {
-                        when(responseLogin.code()){
-                            400 -> displayToast("Email must be an email")
-                            401 -> displayToast("Wrong password")
+                        when(responseCreatePatient.code()){
+                            400 -> displayToast("Phone must be a phone number")
                             404 -> displayToast("User not found")
-                            else -> responseLogin.errorBody()?.let {
+                            else -> responseCreatePatient.errorBody()?.let {
                                 Log.e(ContentValues.TAG, it.string())
                             }
                         }
@@ -94,15 +94,4 @@ class LoginViewModel @Inject constructor(
             setIsProgressBarDisplayed(false)
         }
     }
-
-    fun validateInputs(loginDto: LoginDto) {
-        with(loginDto){
-        if (email.trim().isNotEmpty() && password.trim().isNotEmpty())
-            signIn(this)
-        else
-            displayToast("Certains champs requis vide")
-        }
-
-    }
-
 }

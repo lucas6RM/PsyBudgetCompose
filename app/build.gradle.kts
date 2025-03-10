@@ -73,6 +73,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    implementation("io.coil-kt:coil-compose:2.2.2")
+
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
     implementation("androidx.compose.runtime:runtime-livedata:1.7.6")
 

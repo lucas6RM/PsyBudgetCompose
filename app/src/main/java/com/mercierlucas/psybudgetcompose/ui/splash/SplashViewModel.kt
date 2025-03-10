@@ -18,19 +18,16 @@ class SplashViewModel @Inject constructor(
     private val myPrefs: MyPrefs
 ): ViewModel(){
 
-
-
     private val _isUserLoggedSharedFlow = MutableSharedFlow<Boolean>()
     val isUserLoggedSharedFlow = _isUserLoggedSharedFlow.asSharedFlow()
 
-
     init {
-        // ------ Attention !!!! à supprimer
-        myPrefs.token = null
+        //myPrefs.token=null // <------ à supprimer
 
         viewModelScope.launch {
             delay(2000)
             _isUserLoggedSharedFlow.emit(myPrefs.token != null)
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package com.mercierlucas.psybudgetcompose.data.entities
+package com.mercierlucas.psybudgetcompose.data.model
 
 import com.squareup.moshi.Json
 

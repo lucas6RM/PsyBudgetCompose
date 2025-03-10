@@ -26,12 +26,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.mercierlucas.feedarticles.Utils.showToast
-import com.mercierlucas.psybudgetcompose.data.network.requests.dtos.LoginDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.LoginDto
 import com.mercierlucas.psybudgetcompose.ui.custom.ButtonCustom
 import com.mercierlucas.psybudgetcompose.ui.custom.HeaderCustom
 import com.mercierlucas.psybudgetcompose.ui.custom.OutlinedTextFieldCustom
 import com.mercierlucas.psybudgetcompose.ui.navigation.Screen
-import com.mercierlucas.psybudgetcompose.ui.theme.MyBlue
+import com.mercierlucas.psybudgetcompose.utils.theme.MyBlue
 
 @Composable
 fun LoginScreen(navController: NavHostController, loginViewModel: LoginViewModel) {
@@ -43,24 +43,14 @@ fun LoginScreen(navController: NavHostController, loginViewModel: LoginViewModel
 
     LoginView(
         isProgressBarActive,
-        onClickCreateNewAccount = { loginViewModel.goToRegisterScreen() },
+        onClickCreateNewAccount = { navController.navigate(Screen.Register.route) },
         onClickConfirmButton = { loginDto ->
-            with(loginViewModel){
-                setIsProgressBarDisplayed(true)
-                validateInputs(loginDto)
-            }
+            loginViewModel.validateInputs(loginDto)
         })
 
     LaunchedEffect(true) {
         loginViewModel.messageSharedFlow.collect { message ->
             context.showToast(message)
-        }
-    }
-
-    LaunchedEffect(true) {
-        loginViewModel.goToRegisterSharedFlow.collect { yes ->
-            if(yes)
-                navController.navigate(Screen.Register.route)
         }
     }
 
