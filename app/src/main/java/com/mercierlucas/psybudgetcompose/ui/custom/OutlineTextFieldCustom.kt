@@ -17,7 +17,8 @@ fun OutlinedTextFieldCustom(
     onValueChange: (String) -> Unit,
     labelText : String,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    visualTransformation: VisualTransformation = VisualTransformation.None
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    enabled: Boolean = true
 ){
     OutlinedTextField(
         value = value,
@@ -26,7 +27,8 @@ fun OutlinedTextFieldCustom(
         keyboardOptions = keyboardOptions,
         visualTransformation = visualTransformation,
         maxLines = 1,
-        modifier = Modifier.padding(vertical = 10.dp)
+        modifier = Modifier.padding(vertical = 10.dp),
+        enabled = enabled
     )
 }
 

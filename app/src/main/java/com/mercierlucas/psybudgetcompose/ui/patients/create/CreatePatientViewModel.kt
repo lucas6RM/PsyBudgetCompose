@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.mercierlucas.psybudgetcompose.data.local.MyPrefs
 import com.mercierlucas.psybudgetcompose.data.network.api.ApiService
 import com.mercierlucas.psybudgetcompose.data.network.dtos.CreatePatientDto
-import com.mercierlucas.psybudgetcompose.data.network.dtos.RegisterDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -32,8 +31,8 @@ class CreatePatientViewModel @Inject constructor(
     private val _messageSharedFlow = MutableSharedFlow<String>()
     val messageSharedFlow = _messageSharedFlow.asSharedFlow()
 
-    private val _goToMainMenuSharedFlow = MutableSharedFlow<Boolean>()
-    val goToMainMenuSharedFlow = _goToMainMenuSharedFlow.asSharedFlow()
+    private val _goToAllPatientsScreenSharedFlow = MutableSharedFlow<Boolean>()
+    val goToAllPatientScreenSharedFlow = _goToAllPatientsScreenSharedFlow.asSharedFlow()
 
     fun setIsProgressBarDisplayed(boolean: Boolean){
         _isProgressBarDisplayedStateFlow.value = boolean
@@ -46,9 +45,9 @@ class CreatePatientViewModel @Inject constructor(
         }
     }
 
-    fun goToMainMenuScreen(isResponseCorrectFromServer: Boolean){
+    fun goToAllPatientsScreen(){
         viewModelScope.launch {
-            _goToMainMenuSharedFlow.emit(isResponseCorrectFromServer)
+            _goToAllPatientsScreenSharedFlow.emit(true)
         }
     }
 
@@ -76,7 +75,7 @@ class CreatePatientViewModel @Inject constructor(
                     responseCreatePatient == null -> Log.e(ContentValues.TAG,"Pas de reponse du serveur")
                     responseCreatePatient.isSuccessful && body != null ->{
                         displayToast("New patient added : ${body.firstName} ${body.lastName}")
-                        goToMainMenuScreen(true)
+                        goToAllPatientsScreen()
                     }
                     else -> {
                         when(responseCreatePatient.code()){

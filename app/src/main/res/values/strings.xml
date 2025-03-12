@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">PsyBudgetCompose</string>
+    <string name="user_not_found">User not found\n</string>
+    <string name="nothing_from_server">No response from server</string>
+    <string name="unauthorized">Unauthorized\n</string>
+    <string name="patient_not_found">Patient not found</string>
+    <string name="bad_request">Bad Request - validation failed</string>
+    <string name="patient_identified">Patient identified</string>
+    <string name="modify_patient">Modify patient</string>
+    <string name="delete_patient">Delete patient</string>
+    <string name="some_required_fields_are_empty">Some required fields are empty</string>
+    <string name="patient_modified">Patient modified</string>
+    <string name="patient_deleted">Patient deleted</string>
 </resources>

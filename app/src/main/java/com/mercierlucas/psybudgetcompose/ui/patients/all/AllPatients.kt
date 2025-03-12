@@ -64,6 +64,9 @@ fun AllPatientsScreen(
         onClickAddButton = { navController.navigate(Screen.CreatePatient.route) },
         onCheckInTherapyFilter = { checkedStatus ->
                 allPatientsViewModel.setIsFilterChecked(checkedStatus)
+        },
+        onClickItem = {idPatient ->
+            navController.navigate(Screen.PatientById.route + "/$idPatient")
         })
 
     LaunchedEffect(true) {
@@ -71,6 +74,11 @@ fun AllPatientsScreen(
             context.showToast(message)
         }
     }
+
+    LaunchedEffect(true) {
+        allPatientsViewModel.getAllPatientsAndRefreshFilter()
+    }
+
 }
 
 @Composable
@@ -78,7 +86,8 @@ fun AllPatientsView(
     patientsList: List<PatientLite>,
     isFilterChecked: Boolean,
     onClickAddButton: () -> Unit,
-    onCheckInTherapyFilter: (Boolean) -> Unit
+    onCheckInTherapyFilter: (Boolean) -> Unit,
+    onClickItem : (Long) -> Unit
 ){
 
     var searchPatient by rememberSaveable {
@@ -87,7 +96,6 @@ fun AllPatientsView(
 
     Column (modifier = Modifier.fillMaxSize()){
         HeaderCustom("All Patients directory")
-
 
         Row (
             Modifier
@@ -99,6 +107,7 @@ fun AllPatientsView(
             OutlinedTextFieldCustom(
                 value = searchPatient,
                 onValueChange = {searchPatient = it}, labelText = "Search a patient",
+                enabled = false,
             )
 
             Column (
@@ -123,12 +132,17 @@ fun AllPatientsView(
         LazyColumn(modifier = Modifier
             .weight(1f)
             .padding(top = 10.dp)) {
-            items(items = patientsList){
-                Card (modifier = Modifier.padding(5.dp),
+            items(items = patientsList){patient ->
+                Card (
+                    modifier = Modifier
+                        .padding(5.dp)
+                        .clickable {
+                            onClickItem.invoke(patient.id)
+                        },
                     border = BorderStroke(1.dp, Color.Black),
                     elevation = CardDefaults.cardElevation( defaultElevation = 2.dp)
                 ){
-                    ItemPatientLite(patient = it)
+                    ItemPatientLite(patient = patient)
                 }
             }
         }
@@ -157,7 +171,11 @@ fun AllPatientsView(
 
 
 @Composable
-fun TopRowTable(modifier: Modifier = Modifier, isFilterChecked: Boolean, onCheckInTherapyFilter: (Boolean) -> Unit){
+fun TopRowTable(
+    modifier: Modifier = Modifier,
+    isFilterChecked: Boolean,
+    onCheckInTherapyFilter: (Boolean) -> Unit
+){
 
     var isFilterCheckedState = remember {
         mutableStateOf(isFilterChecked)
@@ -265,7 +283,7 @@ fun AllPatientsPreview() {
         listOf(
         PatientLite(0,"lucasdsqsdqsd","mercier",true),
         PatientLite(1,"tonton","antoine", false)
-    ), false,{}) {}
+    ), false,{},{},{})
 
 }
 

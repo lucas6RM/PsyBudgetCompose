@@ -3,9 +3,11 @@ package com.mercierlucas.psybudgetcompose.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.mercierlucas.psybudgetcompose.ui.login.LoginScreen
 import com.mercierlucas.psybudgetcompose.ui.login.LoginViewModel
 import com.mercierlucas.psybudgetcompose.ui.mainmenu.MainMenuScreen
@@ -14,6 +16,8 @@ import com.mercierlucas.psybudgetcompose.ui.patients.all.AllPatientsScreen
 import com.mercierlucas.psybudgetcompose.ui.patients.all.AllPatientsViewModel
 import com.mercierlucas.psybudgetcompose.ui.patients.create.CreatePatientScreen
 import com.mercierlucas.psybudgetcompose.ui.patients.create.CreatePatientViewModel
+import com.mercierlucas.psybudgetcompose.ui.patients.one.PatientByIdScreen
+import com.mercierlucas.psybudgetcompose.ui.patients.one.PatientByIdViewModel
 import com.mercierlucas.psybudgetcompose.ui.register.RegisterScreen
 import com.mercierlucas.psybudgetcompose.ui.register.RegisterViewModel
 import com.mercierlucas.psybudgetcompose.ui.splash.SplashScreen
@@ -26,6 +30,7 @@ sealed class Screen(val route : String){
     object MainMenu : Screen("main_menu" )
     object AllPatients : Screen("all_patients" )
     object CreatePatient : Screen("create_patient" )
+    object PatientById : Screen("patient_by_id" )
 }
 
 @Composable
@@ -63,6 +68,16 @@ fun MyNavigation(navController: NavHostController = rememberNavController()){
         composable(Screen.CreatePatient.route) {
             val createPatientViewModel: CreatePatientViewModel = hiltViewModel()
             CreatePatientScreen(navController, createPatientViewModel)
+        }
+
+        composable(Screen.PatientById.route + "/{id}",
+            arguments = listOf(navArgument(name = "id"){
+                type = NavType.LongType
+            })
+        ){navBackStackEntry ->
+            val idPatientSelected = navBackStackEntry.arguments?.getLong("id") ?:0L
+            val patientByIdViewModel : PatientByIdViewModel = hiltViewModel()
+            PatientByIdScreen(navController, patientByIdViewModel, idPatientSelected)
         }
 
     }

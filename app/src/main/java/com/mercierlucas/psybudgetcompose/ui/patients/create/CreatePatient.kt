@@ -56,7 +56,7 @@ fun CreatePatientScreen(
         }
 
         LaunchedEffect(true) {
-            goToMainMenuSharedFlow.collect { yes ->
+            goToAllPatientScreenSharedFlow.collect { yes ->
                 if(yes)
                     navController.popBackStack()
             }
@@ -126,7 +126,7 @@ fun CreatePatientView(isProgressBarActive: Boolean, onClickConfirmButton: (Creat
 
 
             OutlinedTextFieldCustom(
-                value = numberSS.toString() ,
+                value = numberSS?.toString() ?: "" ,
                 onValueChange = { numberSS = it.toInt() },
                 labelText = "n° Social Security",
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
@@ -139,7 +139,7 @@ fun CreatePatientView(isProgressBarActive: Boolean, onClickConfirmButton: (Creat
             )
 
             OutlinedTextFieldCustom(
-                value = postalCode.toString(),
+                value = postalCode?.toString() ?: "",
                 onValueChange = { postalCode = it.toInt() },
                 labelText = "Postal code",
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
@@ -150,7 +150,7 @@ fun CreatePatientView(isProgressBarActive: Boolean, onClickConfirmButton: (Creat
                 labelText = "City"
             )
             OutlinedTextFieldCustom(
-                value = age.toString(),
+                value = age?.toString() ?: "",
                 onValueChange = { age = it.toInt() },
                 labelText = "Postal code",
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)

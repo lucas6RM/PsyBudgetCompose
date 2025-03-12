@@ -18,10 +18,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun RadioButtonSingleSelectionHorizontal(modifier: Modifier = Modifier,
-                                         radioOptions : List<String> = listOf("1", "2", "3"),
-                                         callbackRBSelected:(String) ->  Unit) {
-
+fun RadioButtonSingleSelectionHorizontal(
+    modifier: Modifier = Modifier,
+    radioOptions : List<String> = listOf("1", "2", "3"),
+    callbackRBSelected:(String) ->  Unit,
+    enabled: Boolean = true
+) {
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
 
     Row(modifier.selectableGroup()) {
@@ -41,7 +43,8 @@ fun RadioButtonSingleSelectionHorizontal(modifier: Modifier = Modifier,
             ) {
                 RadioButton(
                     selected = (text == selectedOption),
-                    onClick = null
+                    onClick = null,
+                    enabled = enabled
                 )
                 Text(
                     text = text,

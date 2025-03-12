@@ -103,10 +103,11 @@ fun LoginView(
             )
 
 
-            ButtonCustom {
+            ButtonCustom (
+                onClick = {
                 println("Email : $email \n Password : $password")
                 onClickConfirmButton.invoke(LoginDto(email,password))
-            }
+            })
 
             Row (){
                 Text(text = "No Account ?")

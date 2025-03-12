@@ -5,11 +5,17 @@ import com.mercierlucas.psybudgetcompose.data.network.dtos.PatientDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.RegisterDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.AuthenticatedResponseDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.CreatePatientDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.RespondeDeletePatientDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseUpdatePatientDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.UpdatePatientDto
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
 
@@ -33,5 +39,26 @@ interface ApiService {
         @Header("Authorization") token : String?,
         @Body createPatientDto: CreatePatientDto
     ) : Response<PatientDto>?
+
+    @GET(ApiRoutes.GET_PATIENT)
+    suspend fun getPatient(
+        @Header("Authorization") token : String?,
+        @Path("id") id : Long,
+    ) : Response<PatientDto>?
+
+    @PATCH(ApiRoutes.UPDATE_PATIENT)
+    suspend fun updatePatient(
+        @Header("Authorization") token : String?,
+        @Path("id") id : Long,
+        @Body updatePatientDto: UpdatePatientDto,
+    ) : Response<ResponseUpdatePatientDto>?
+
+
+    @DELETE(ApiRoutes.DELETE_PATIENT)
+    suspend fun deletePatient(
+        @Header("Authorization") token : String?,
+        @Path("id") id : Long,
+    ) : Response<RespondeDeletePatientDto>?
+
 
 }

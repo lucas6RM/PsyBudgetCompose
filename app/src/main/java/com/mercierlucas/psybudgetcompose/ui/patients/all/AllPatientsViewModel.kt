@@ -37,9 +37,6 @@ class AllPatientsViewModel @Inject constructor(
     private val _messageSharedFlow = MutableSharedFlow<String>()
     val messageSharedFlow = _messageSharedFlow.asSharedFlow()
 
-    init {
-            getAllPatientsAndRefreshFilter()
-    }
 
     fun setIsFilterChecked(checkedChanged: Boolean){
         _isFilterCheckedStateFlow.value = checkedChanged
@@ -62,7 +59,7 @@ class AllPatientsViewModel @Inject constructor(
             _patientLiteListFilteredStateFlow.value = _patientLiteListStateFlow.value
     }
 
-    private fun getAllPatientsAndRefreshFilter() {
+    fun getAllPatientsAndRefreshFilter() {
         viewModelScope.launch {
             try {
                 val responseGetAllPatients = withContext(Dispatchers.IO){

@@ -146,12 +146,14 @@ fun RegisterView(
         if (isProgressBarActive)
             CircularProgressIndicator()
 
-        ButtonCustom(modifier = Modifier.padding(vertical = 60.dp)) {
-            onClickConfirmButton.invoke(
-                confirmedPassword,
-                RegisterDto(firstName,lastName,password,email,phone,address,postalCode,city)
-            )
-        }
+        ButtonCustom(
+            modifier = Modifier.padding(vertical = 60.dp),
+            onClick = {
+                onClickConfirmButton.invoke(
+                    confirmedPassword,
+                    RegisterDto(firstName,lastName,password,email,phone,address,postalCode,city)
+                )
+            })
     }
 }
 
