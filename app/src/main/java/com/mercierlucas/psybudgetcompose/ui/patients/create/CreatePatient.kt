@@ -21,12 +21,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.mercierlucas.feedarticles.Utils.showToast
+import com.mercierlucas.psybudgetcompose.R
 import com.mercierlucas.psybudgetcompose.data.network.dtos.CreatePatientDto
 import com.mercierlucas.psybudgetcompose.ui.custom.ButtonCustom
 import com.mercierlucas.psybudgetcompose.ui.custom.HeaderCustom
@@ -92,7 +94,7 @@ fun CreatePatientView(isProgressBarActive: Boolean, onClickConfirmButton: (Creat
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        HeaderCustom("Create a new patient")
+        HeaderCustom(stringResource(id = R.string.create_a_new_patient))
 
         Column(horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
@@ -103,24 +105,24 @@ fun CreatePatientView(isProgressBarActive: Boolean, onClickConfirmButton: (Creat
             OutlinedTextFieldCustom(
                 value = firstName,
                 onValueChange = { firstName = it },
-                labelText = "First name (*)"
+                labelText = stringResource(id = R.string.first_name_required)
             )
             OutlinedTextFieldCustom(
                 value = lastName,
                 onValueChange = { lastName = it },
-                labelText = "Last name (*)"
+                labelText = stringResource(id = R.string.last_name_required)
             )
             OutlinedTextFieldCustom(
                 value = phone,
                 onValueChange = { phone = it },
-                labelText = "Phone number (*)",
+                labelText = stringResource(id = R.string.phone_number_required),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
             )
 
             OutlinedTextFieldCustom(
                 value = email ?: "",
                 onValueChange = { email = it },
-                labelText = "Email",
+                labelText = stringResource(id = R.string.email),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
             )
 
@@ -128,31 +130,31 @@ fun CreatePatientView(isProgressBarActive: Boolean, onClickConfirmButton: (Creat
             OutlinedTextFieldCustom(
                 value = numberSS?.toString() ?: "" ,
                 onValueChange = { numberSS = it.toInt() },
-                labelText = "n° Social Security",
+                labelText = stringResource(id = R.string.number_ss),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )
 
             OutlinedTextFieldCustom(
                 value = address ?: "",
                 onValueChange = { address = it },
-                labelText = "Address"
+                labelText = stringResource(id = R.string.address)
             )
 
             OutlinedTextFieldCustom(
                 value = postalCode?.toString() ?: "",
                 onValueChange = { postalCode = it.toInt() },
-                labelText = "Postal code",
+                labelText = stringResource(id = R.string.postal_code),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )
             OutlinedTextFieldCustom(
                 value = city ?: "",
                 onValueChange = { city = it },
-                labelText = "City"
+                labelText = stringResource(id = R.string.city)
             )
             OutlinedTextFieldCustom(
                 value = age?.toString() ?: "",
                 onValueChange = { age = it.toInt() },
-                labelText = "Postal code",
+                labelText = stringResource(id = R.string.age),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )
 
@@ -161,9 +163,13 @@ fun CreatePatientView(isProgressBarActive: Boolean, onClickConfirmButton: (Creat
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Income : ", fontSize = 18.sp)
+                Text(text = stringResource(id = R.string.income), fontSize = 18.sp)
                 RadioButtonSingleSelectionHorizontal(
-                    radioOptions = listOf("Low", "Mid", "High"),
+                    radioOptions = listOf(
+                        stringResource(id = R.string.low),
+                        stringResource(id = R.string.mid),
+                        stringResource(id = R.string.high)
+                    ),
                     callbackRBSelected = { radioButtonSelected ->
                         income = radioButtonSelected.lowercase()
                     })
@@ -174,7 +180,7 @@ fun CreatePatientView(isProgressBarActive: Boolean, onClickConfirmButton: (Creat
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Is in therapy : ", fontSize = 18.sp)
+                Text(text = stringResource(id = R.string.is_in_therapy), fontSize = 18.sp)
                 Checkbox(checked = isActive, onCheckedChange = { isActive = it })
             }
 
@@ -183,7 +189,7 @@ fun CreatePatientView(isProgressBarActive: Boolean, onClickConfirmButton: (Creat
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Is Requiring Invoice : ", fontSize = 18.sp)
+                Text(text = stringResource(id = R.string.is_requiring_invoice), fontSize = 18.sp)
                 Checkbox(
                     checked = isRequiringInvoice,
                     onCheckedChange = { isRequiringInvoice = it })

@@ -69,14 +69,16 @@ fun AllPatientsScreen(
             navController.navigate(Screen.PatientById.route + "/$idPatient")
         })
 
-    LaunchedEffect(true) {
-        allPatientsViewModel.messageSharedFlow.collect { message ->
-            context.showToast(message)
+    with(allPatientsViewModel){
+        LaunchedEffect(true) {
+            messageSharedFlow.collect { message ->
+                context.showToast(message)
+            }
         }
-    }
 
-    LaunchedEffect(true) {
-        allPatientsViewModel.getAllPatientsAndRefreshFilter()
+        LaunchedEffect(true) {
+            getAllPatientsAndRefreshFilter()
+        }
     }
 
 }

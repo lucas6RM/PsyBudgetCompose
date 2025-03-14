@@ -11,5 +11,8 @@ object ApiRoutes {
     const val GET_PATIENT = "patients/{id}"
     const val UPDATE_PATIENT = "patients/update/{id}"
     const val DELETE_PATIENT = "patients/delete/{id}"
+    const val GET_REMAINING_AGREEMENTS = "sessions/agreements"
+    const val CREATE_SESSION = "sessions/new"
+
 
 }

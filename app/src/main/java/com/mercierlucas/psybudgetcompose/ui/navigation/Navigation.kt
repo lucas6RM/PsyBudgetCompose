@@ -20,6 +20,9 @@ import com.mercierlucas.psybudgetcompose.ui.patients.one.PatientByIdScreen
 import com.mercierlucas.psybudgetcompose.ui.patients.one.PatientByIdViewModel
 import com.mercierlucas.psybudgetcompose.ui.register.RegisterScreen
 import com.mercierlucas.psybudgetcompose.ui.register.RegisterViewModel
+import com.mercierlucas.psybudgetcompose.ui.sessions.create.CreateSessionScreen
+import com.mercierlucas.psybudgetcompose.ui.sessions.create.CreateSessionViewModel
+import com.mercierlucas.psybudgetcompose.ui.sessions.menu.MenuSessionScreen
 import com.mercierlucas.psybudgetcompose.ui.splash.SplashScreen
 import com.mercierlucas.psybudgetcompose.ui.splash.SplashViewModel
 
@@ -31,6 +34,8 @@ sealed class Screen(val route : String){
     object AllPatients : Screen("all_patients" )
     object CreatePatient : Screen("create_patient" )
     object PatientById : Screen("patient_by_id" )
+    object CreateSession : Screen("create_session" )
+    object SessionMenu : Screen("session_menu" )
 }
 
 @Composable
@@ -80,5 +85,15 @@ fun MyNavigation(navController: NavHostController = rememberNavController()){
             PatientByIdScreen(navController, patientByIdViewModel, idPatientSelected)
         }
 
+        composable(Screen.CreateSession.route) {
+            val createSessionViewModel: CreateSessionViewModel = hiltViewModel()
+            CreateSessionScreen(navController, createSessionViewModel)
+        }
+
+        composable(Screen.SessionMenu.route) {
+            MenuSessionScreen(navController)
+        }
+
     }
 }
+

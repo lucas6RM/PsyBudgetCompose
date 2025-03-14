@@ -5,7 +5,9 @@ import com.mercierlucas.psybudgetcompose.data.network.dtos.PatientDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.RegisterDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.AuthenticatedResponseDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.CreatePatientDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.CreateSessionDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.RespondeDeletePatientDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseSessionCreated
 import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseUpdatePatientDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.UpdatePatientDto
 import retrofit2.Response
@@ -16,6 +18,7 @@ import retrofit2.http.Header
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -59,6 +62,19 @@ interface ApiService {
         @Header("Authorization") token : String?,
         @Path("id") id : Long,
     ) : Response<RespondeDeletePatientDto>?
+
+    @GET(ApiRoutes.GET_REMAINING_AGREEMENTS)
+    suspend fun getRemainingAgreementsForThisYear(
+        @Header("Authorization") token : String?,
+        @Query("patientId") patientId : Long,
+    ) : Response<Int>?
+
+    @POST(ApiRoutes.CREATE_SESSION)
+    suspend fun createNewSession(
+        @Header("Authorization") token : String?,
+        @Body createSessionDto: CreateSessionDto
+    ) : Response<ResponseSessionCreated>?
+
 
 
 }

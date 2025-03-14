@@ -34,3 +34,20 @@ data class DeletedPatient(
     @Json(name = "lastName")
     val lastName: String
 )
+
+
+data class ResponseSessionCreated(
+    @Json(name = "message")
+    val message: String,
+    @Json(name = "patient")
+    val patient: PatientNames,
+    @Json(name = "session")
+    val session: String
+)
+
+data class PatientNames(
+    @Json(name = "firstName")
+    val firstName: String,
+    @Json(name = "lastName")
+    val lastName: String
+)
