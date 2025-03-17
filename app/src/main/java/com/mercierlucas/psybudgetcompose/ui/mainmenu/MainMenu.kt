@@ -44,12 +44,14 @@ fun MainMenuScreen(navController: NavHostController, mainMenuViewModel: MainMenu
                 DestinationsFromMainMenuTo.PATIENTS ->
                     navigate(Screen.AllPatients.route)
 
-                DestinationsFromMainMenuTo.SESSIONS -> {}
+                DestinationsFromMainMenuTo.SESSIONS ->
+                    navigate(Screen.SessionMenu.route)
 
                 DestinationsFromMainMenuTo.CREATE_SESSION ->
                     navigate(Screen.CreateSession.route)
 
-                DestinationsFromMainMenuTo.TRANSACTIONS -> {}
+                DestinationsFromMainMenuTo.TRANSACTIONS ->
+                    navigate(Screen.TransactionsMenu.route)
 
                 DestinationsFromMainMenuTo.PAID_INVOICES -> {}
 
@@ -118,7 +120,11 @@ fun MainMenuView(
             ){
                 Column(modifier = Modifier
                     .weight(1F)) {
-                    CardButtonMenu(text = "Transactions")
+                    CardButtonMenu(
+                        text = "Transactions",
+                        onClick = { destinationClicked
+                            .invoke(DestinationsFromMainMenuTo.TRANSACTIONS) }
+                    )
                 }
                 Column(modifier = Modifier
                     .weight(1F)) {

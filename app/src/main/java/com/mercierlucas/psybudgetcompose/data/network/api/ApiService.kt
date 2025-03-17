@@ -6,10 +6,15 @@ import com.mercierlucas.psybudgetcompose.data.network.dtos.RegisterDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.AuthenticatedResponseDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.CreatePatientDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.CreateSessionDto
-import com.mercierlucas.psybudgetcompose.data.network.dtos.RespondeDeletePatientDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseDeletePatientDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseDeleteSessionDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseSessionByDayDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseSessionCreated
+import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseSessionsDueThisYear
 import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseUpdatePatientDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.SessionDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.UpdatePatientDto
+import com.mercierlucas.psybudgetcompose.ui.navigation.Screen
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -61,7 +66,7 @@ interface ApiService {
     suspend fun deletePatient(
         @Header("Authorization") token : String?,
         @Path("id") id : Long,
-    ) : Response<RespondeDeletePatientDto>?
+    ) : Response<ResponseDeletePatientDto>?
 
     @GET(ApiRoutes.GET_REMAINING_AGREEMENTS)
     suspend fun getRemainingAgreementsForThisYear(
@@ -74,6 +79,30 @@ interface ApiService {
         @Header("Authorization") token : String?,
         @Body createSessionDto: CreateSessionDto
     ) : Response<ResponseSessionCreated>?
+
+    @GET(ApiRoutes.GET_SESSIONS_BY_DAY)
+    suspend fun getSessionsByDay(
+        @Header("Authorization") token : String?,
+        @Query ("currentDate") currentDate : String
+    ) : Response<ResponseSessionByDayDto>?
+
+    @GET(ApiRoutes.GET_SESSION_BY_ID)
+    suspend fun getSessionById(
+        @Header("Authorization") token : String?,
+        @Path("id") sessionId : Long,
+    ) : Response<SessionDto>?
+
+    @DELETE(ApiRoutes.DELETE_SESSION_BY_ID)
+    suspend fun deleteSessionById(
+        @Header("Authorization") token : String?,
+        @Path("id") sessionId : Long,
+    ) : Response<ResponseDeleteSessionDto>?
+
+    @GET(ApiRoutes.GET_SESSIONS_DUE_THIS_YEAR)
+    suspend fun getSessionsDueThisYear(
+        @Header("Authorization") token : String?,
+        @Query("currentDate") currentDate: String
+    ) : Response<ResponseSessionsDueThisYear>?
 
 
 

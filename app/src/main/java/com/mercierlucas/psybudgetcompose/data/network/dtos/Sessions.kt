@@ -18,3 +18,4 @@ class CreateSessionDto(
     @Json(name = "isStateAgreementUsed")
     val isStateAgreementUsed: Boolean,
 )
+

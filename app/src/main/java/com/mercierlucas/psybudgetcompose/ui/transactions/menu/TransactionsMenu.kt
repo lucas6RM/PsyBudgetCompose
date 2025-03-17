@@ -1,8 +1,9 @@
-package com.mercierlucas.psybudgetcompose.ui.sessions.menu
+package com.mercierlucas.psybudgetcompose.ui.transactions.menu
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,38 +18,38 @@ import com.mercierlucas.psybudgetcompose.R
 import com.mercierlucas.psybudgetcompose.ui.custom.CardButtonMenu
 import com.mercierlucas.psybudgetcompose.ui.custom.HeaderCustom
 import com.mercierlucas.psybudgetcompose.ui.navigation.Screen
-import com.mercierlucas.psybudgetcompose.utils.DestinationsFromMainMenuTo
-import com.mercierlucas.psybudgetcompose.utils.DestinationsFromSessionsMenuTo
+import com.mercierlucas.psybudgetcompose.utils.DestinationsFromTransactionsMenuTo
 import com.mercierlucas.psybudgetcompose.utils.theme.PsyBudgetComposeTheme
 
 @Composable
-fun MenuSessionScreen(navController: NavHostController) {
-    MenuSessionView(destinationClicked = {destinationClicked ->
-        with(navController){
-            when(destinationClicked){
-                DestinationsFromSessionsMenuTo.CREATE_SESSION ->
-                    navigate(Screen.CreateSession.route)
-                DestinationsFromSessionsMenuTo.DAILY_SESSIONS ->
-                    navigate(Screen.DailySessions.route)
-                DestinationsFromSessionsMenuTo.SESSIONS_BY_PERIOD -> {}
-                DestinationsFromSessionsMenuTo.SESSIONS_BY_PATIENTS -> {}
+fun MenuTransactionScreen(navController: NavHostController) {
+    MenuTransactionView(
+        destinationClicked = {destinationClicked ->
+            with(navController){
+                when(destinationClicked){
+                    DestinationsFromTransactionsMenuTo.INCOMES_BY_MONTH ->
+                        navigate(Screen.IncomesByMonth.route)
+
+                    DestinationsFromTransactionsMenuTo.VALIDATE_PAYMENTS ->
+                        navigate(Screen.ValidatePayments.route)
+
+                    DestinationsFromTransactionsMenuTo.TRANSACTIONS_BY_PATIENTS -> {}
+                }
             }
         }
-
-
-    })
+    )
 
 
 
 }
 
 @Composable
-fun MenuSessionView(
-    destinationClicked:(DestinationsFromSessionsMenuTo)->Unit){
+fun MenuTransactionView(
+    destinationClicked:(DestinationsFromTransactionsMenuTo)->Unit){
 
     Column (Modifier.fillMaxSize()){
 
-        HeaderCustom(title = stringResource(id = R.string.menu_session))
+        HeaderCustom(title = stringResource(id = R.string.menu_transactions))
 
         Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.SpaceEvenly) {
 
@@ -61,10 +62,11 @@ fun MenuSessionView(
                 verticalAlignment = Alignment.CenterVertically
             ){
                 CardButtonMenu(
-                    text = stringResource(id = R.string.create_session),
+                    text = stringResource(id = R.string.incomes_by_month),
                     enableClick = true,
                     onClick = {
-                        destinationClicked.invoke(DestinationsFromSessionsMenuTo.CREATE_SESSION)}
+                        destinationClicked.invoke(
+                            DestinationsFromTransactionsMenuTo.INCOMES_BY_MONTH)}
                 )
             }
 
@@ -78,15 +80,33 @@ fun MenuSessionView(
                 verticalAlignment = Alignment.CenterVertically
             ){
                 CardButtonMenu(
-                    text = stringResource(id = R.string.daily_sessions),
+                    text = stringResource(id = R.string.search_transactions_by_patients),
+                    enableClick = false,
+                    onClick = {
+                        destinationClicked.invoke(
+                            DestinationsFromTransactionsMenuTo.TRANSACTIONS_BY_PATIENTS)}
+                )
+
+            }
+
+
+            Row(modifier = Modifier
+                .weight(1F)
+                .fillMaxWidth()
+                .padding(horizontal = 5.dp)
+                .padding(top = 5.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                CardButtonMenu(
+                    text = stringResource(id = R.string.validate_payments),
                     enableClick = true,
                     onClick = {
-                        destinationClicked.invoke(DestinationsFromSessionsMenuTo.DAILY_SESSIONS)}
+                        destinationClicked.invoke(
+                            DestinationsFromTransactionsMenuTo.VALIDATE_PAYMENTS)}
                 )
 
             }
-
-
             Row(modifier = Modifier
                 .weight(1F)
                 .fillMaxWidth()
@@ -95,59 +115,19 @@ fun MenuSessionView(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ){
-                CardButtonMenu(
-                    text = stringResource(id = R.string.sessions_by_period),
-                    enableClick = false,
-                    onClick = {
-                        destinationClicked.invoke(DestinationsFromSessionsMenuTo.SESSIONS_BY_PERIOD)}
-                )
-
+                Spacer(Modifier.padding(10.dp))
             }
-
-
-            Row(modifier = Modifier
-                .weight(1F)
-                .fillMaxWidth()
-                .padding(horizontal = 5.dp)
-                .padding(top = 5.dp),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ){
-                CardButtonMenu(
-                    text = stringResource(id = R.string.find_sessions_by_patient),
-                    enableClick = false,
-                    onClick = {
-                        destinationClicked.invoke(DestinationsFromSessionsMenuTo.SESSIONS_BY_PATIENTS)
-                    }
-                )
-
-            }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         }
     }
 
 }
 
-@Preview (showBackground = true)
+@Preview(showBackground = true)
 @Composable
-fun MenuSessionPreview(){
-    PsyBudgetComposeTheme(dynamicColor = true) {
-        MenuSessionView({})
+fun MenuTransactionPreview(){
+    PsyBudgetComposeTheme(dynamicColor = false) {
+        MenuTransactionView({})
     }
 
 }

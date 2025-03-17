@@ -8,8 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.mercierlucas.psybudgetcompose.ui.login.LoginScreen
-import com.mercierlucas.psybudgetcompose.ui.login.LoginViewModel
+import com.mercierlucas.psybudgetcompose.ui.auth.login.LoginScreen
+import com.mercierlucas.psybudgetcompose.ui.auth.login.LoginViewModel
 import com.mercierlucas.psybudgetcompose.ui.mainmenu.MainMenuScreen
 import com.mercierlucas.psybudgetcompose.ui.mainmenu.MainMenuViewModel
 import com.mercierlucas.psybudgetcompose.ui.patients.all.AllPatientsScreen
@@ -18,13 +18,22 @@ import com.mercierlucas.psybudgetcompose.ui.patients.create.CreatePatientScreen
 import com.mercierlucas.psybudgetcompose.ui.patients.create.CreatePatientViewModel
 import com.mercierlucas.psybudgetcompose.ui.patients.one.PatientByIdScreen
 import com.mercierlucas.psybudgetcompose.ui.patients.one.PatientByIdViewModel
-import com.mercierlucas.psybudgetcompose.ui.register.RegisterScreen
-import com.mercierlucas.psybudgetcompose.ui.register.RegisterViewModel
+import com.mercierlucas.psybudgetcompose.ui.auth.register.RegisterScreen
+import com.mercierlucas.psybudgetcompose.ui.auth.register.RegisterViewModel
 import com.mercierlucas.psybudgetcompose.ui.sessions.create.CreateSessionScreen
 import com.mercierlucas.psybudgetcompose.ui.sessions.create.CreateSessionViewModel
+import com.mercierlucas.psybudgetcompose.ui.sessions.daily.DailySessionViewModel
+import com.mercierlucas.psybudgetcompose.ui.sessions.daily.DailySessionsScreen
+import com.mercierlucas.psybudgetcompose.ui.sessions.details.DetailsSessionScreen
+import com.mercierlucas.psybudgetcompose.ui.sessions.details.DetailsSessionViewModel
 import com.mercierlucas.psybudgetcompose.ui.sessions.menu.MenuSessionScreen
 import com.mercierlucas.psybudgetcompose.ui.splash.SplashScreen
 import com.mercierlucas.psybudgetcompose.ui.splash.SplashViewModel
+import com.mercierlucas.psybudgetcompose.ui.transactions.incomes.IncomesByMonthScreen
+import com.mercierlucas.psybudgetcompose.ui.transactions.incomes.IncomesByMonthViewModel
+import com.mercierlucas.psybudgetcompose.ui.transactions.menu.MenuTransactionScreen
+import com.mercierlucas.psybudgetcompose.ui.transactions.validate.ValidatePaymentsScreen
+import com.mercierlucas.psybudgetcompose.ui.transactions.validate.ValidatePaymentsViewModel
 
 sealed class Screen(val route : String){
     object Splash : Screen("splash")
@@ -36,6 +45,12 @@ sealed class Screen(val route : String){
     object PatientById : Screen("patient_by_id" )
     object CreateSession : Screen("create_session" )
     object SessionMenu : Screen("session_menu" )
+    object DailySessions : Screen("daily_sessions" )
+    object DetailsSession : Screen("details_session")
+    object TransactionsMenu : Screen("transactions_menu" )
+    object IncomesByMonth : Screen("incomes_by_month" )
+    object ValidatePayments : Screen("validate_payments" )
+
 }
 
 @Composable
@@ -92,6 +107,36 @@ fun MyNavigation(navController: NavHostController = rememberNavController()){
 
         composable(Screen.SessionMenu.route) {
             MenuSessionScreen(navController)
+        }
+
+        composable(Screen.DailySessions.route) {
+            val dailySessionViewModel: DailySessionViewModel = hiltViewModel()
+            DailySessionsScreen(navController, dailySessionViewModel)
+        }
+
+        composable(
+            Screen.DetailsSession.route + "/{sessionId}",
+            arguments = listOf(navArgument(name = "sessionId"){
+                type = NavType.LongType
+            })
+        ) {navBackStackEntry ->
+            val idSessionSelected = navBackStackEntry.arguments?.getLong("sessionId") ?: 0L
+            val detailsSessionViewModel :DetailsSessionViewModel = hiltViewModel()
+            DetailsSessionScreen(navController,detailsSessionViewModel,idSessionSelected)
+        }
+
+        composable(Screen.TransactionsMenu.route) {
+            MenuTransactionScreen(navController)
+        }
+
+        composable(Screen.IncomesByMonth.route){
+            val incomesByMonthViewModel: IncomesByMonthViewModel = hiltViewModel()
+            IncomesByMonthScreen(navController, incomesByMonthViewModel)
+        }
+
+        composable(Screen.ValidatePayments.route){
+            val validatePaymentsViewModel : ValidatePaymentsViewModel = hiltViewModel()
+            ValidatePaymentsScreen(navController, validatePaymentsViewModel)
         }
 
     }

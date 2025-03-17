@@ -22,3 +22,7 @@ enum class DestinationsFromMainMenuTo{
 enum class DestinationsFromSessionsMenuTo{
     CREATE_SESSION, DAILY_SESSIONS, SESSIONS_BY_PERIOD, SESSIONS_BY_PATIENTS
 }
+
+enum class DestinationsFromTransactionsMenuTo{
+    INCOMES_BY_MONTH, VALIDATE_PAYMENTS, TRANSACTIONS_BY_PATIENTS
+}

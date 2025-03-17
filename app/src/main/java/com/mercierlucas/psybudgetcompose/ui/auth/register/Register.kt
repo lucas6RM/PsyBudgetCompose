@@ -1,4 +1,4 @@
-package com.mercierlucas.psybudgetcompose.ui.register
+package com.mercierlucas.psybudgetcompose.ui.auth.register
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

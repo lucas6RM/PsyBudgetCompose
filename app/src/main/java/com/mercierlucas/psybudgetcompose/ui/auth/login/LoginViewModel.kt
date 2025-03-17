@@ -1,4 +1,4 @@
-package com.mercierlucas.psybudgetcompose.ui.login
+package com.mercierlucas.psybudgetcompose.ui.auth.login
 
 import android.content.ContentValues
 import android.util.Log

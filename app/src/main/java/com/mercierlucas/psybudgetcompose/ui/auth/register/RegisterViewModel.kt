@@ -1,4 +1,4 @@
-package com.mercierlucas.psybudgetcompose.ui.register
+package com.mercierlucas.psybudgetcompose.ui.auth.register
 
 import android.content.ContentValues
 import android.util.Log

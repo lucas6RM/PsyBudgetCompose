@@ -33,11 +33,11 @@ import com.mercierlucas.psybudgetcompose.R
 import com.mercierlucas.psybudgetcompose.data.model.PatientLite
 import com.mercierlucas.psybudgetcompose.data.network.dtos.CreateSessionDto
 import com.mercierlucas.psybudgetcompose.ui.custom.ButtonCustom
-import com.mercierlucas.psybudgetcompose.ui.custom.DatePickerFieldToModal
 import com.mercierlucas.psybudgetcompose.ui.custom.DropDownEnumString
 import com.mercierlucas.psybudgetcompose.ui.custom.DropDownPatientsInTherapyList
 import com.mercierlucas.psybudgetcompose.ui.custom.HeaderCustom
 import com.mercierlucas.psybudgetcompose.ui.custom.OutlinedTextFieldCustom
+import com.mercierlucas.psybudgetcompose.ui.custom.datepickers.DatePickerDocked
 import com.mercierlucas.psybudgetcompose.utils.PaymentMethod
 import com.mercierlucas.psybudgetcompose.utils.theme.PsyBudgetComposeTheme
 import kotlinx.coroutines.delay
@@ -123,7 +123,7 @@ fun CreateSessionView(
         )
         {
 
-            DatePickerFieldToModal(
+            DatePickerDocked(
                 modifier = Modifier.padding(horizontal = 20.dp),
                 textLabel = stringResource(id = R.string.session_date),
                 onDateSelected = { strFormattedDate ->
