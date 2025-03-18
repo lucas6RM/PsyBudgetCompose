@@ -82,6 +82,8 @@ class CreateSessionViewModel @Inject constructor(
                     }
                     else -> {
                         when(responseGetAllPatients.code()){
+                            400 -> displayToast(R.string.bad_request)
+                            401 -> displayToast(R.string.unauthorized)
                             404 -> displayToast(R.string.user_not_found)
                             else -> responseGetAllPatients.errorBody()?.let {
                                 Log.e(ContentValues.TAG, it.string())

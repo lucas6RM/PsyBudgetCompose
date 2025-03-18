@@ -149,3 +149,20 @@ data class TransactionLite(
     @Json(name = "paymentMethod")
     val paymentMethod: String
 )
+
+//------- Response Update Transaction Dto --------
+
+data class ResponseUpdateTransactionDto(
+    @Json(name = "id")
+    val id: Long,
+    @Json(name = "amountDue")
+    val amountDue: Int,
+    @Json(name = "isPaymentValidated")
+    val isPaymentValidated: Boolean,
+    @Json(name = "paymentMethod")
+    val paymentMethod: String,
+    @Json(name = "createdAt")
+    val createdAt: String,
+    @Json(name = "updatedAt")
+    val updatedAt: String
+)

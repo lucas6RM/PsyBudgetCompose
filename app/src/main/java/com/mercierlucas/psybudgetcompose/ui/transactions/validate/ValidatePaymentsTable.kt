@@ -14,10 +14,9 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -32,13 +31,19 @@ import com.mercierlucas.psybudgetcompose.ui.custom.SplitLine
 import com.mercierlucas.psybudgetcompose.utils.theme.PsyBudgetComposeTheme
 
 @Composable
-fun ValidatePaymentsTable(sessionsDueThisYear: List<SessionDueThisYear>, checkBoxIsChecked: Boolean) {
+fun ValidatePaymentsTable(
+    sessionsDueThisYear: List<SessionDueThisYear>,
+    onClickOnCheckbox: (SessionDueThisYear) -> Unit,
+    isPopupDisplayed: Boolean
+) {
 
     Column(modifier = Modifier.fillMaxSize()) {
 
         TableHeader()
         TableContent(
-            sessionsDueThisYear = sessionsDueThisYear
+            sessionsDueThisYear = sessionsDueThisYear,
+            onClickOnCheckbox = onClickOnCheckbox,
+            isPopupDisplayed = isPopupDisplayed
         )
 
     }
@@ -140,9 +145,13 @@ fun TableHeader(
 @Composable
 fun TableContent(
     modifier: Modifier = Modifier,
-    sessionsDueThisYear: List<SessionDueThisYear>) {
+    sessionsDueThisYear: List<SessionDueThisYear>,
+    onClickOnCheckbox: (SessionDueThisYear) -> Unit,
+    isPopupDisplayed: Boolean
 
-    var isPopupDisplayed by remember { mutableStateOf(false) }
+) {
+
+    val selectedSession = remember { mutableStateListOf<SessionDueThisYear>() }
 
     LazyColumn(
         modifier = Modifier
@@ -227,15 +236,21 @@ fun TableContent(
 
                 Column(modifier=Modifier.weight(0.5f),
                     horizontalAlignment = Alignment.CenterHorizontally) {
+
                     Checkbox(
-                        checked = session.transaction.isPaymentValidated,
-                        onCheckedChange = {
-                            isPopupDisplayed = true
+                        checked = selectedSession.contains(session),
+                        onCheckedChange = {isChecked ->
+                            if(isChecked){
+                                selectedSession.add(session)
+                                onClickOnCheckbox.invoke(session)
+                            }
+                            else
+                                selectedSession.remove(session)
                         }
                     )
+                    if(!isPopupDisplayed)
+                        selectedSession.remove(session)
                 }
-
-
             }
         }
     }

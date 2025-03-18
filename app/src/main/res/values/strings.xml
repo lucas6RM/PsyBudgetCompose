@@ -70,6 +70,8 @@
     <string name="amount_n_due">Amount\ndue</string>
     <string name="ok_question">ok?</string>
     <string name="select_year">Select year</string>
-    <string name="confirm_payment_validation">to validate this payment ?</string>
+    <string name="confirm_payment_validation">Do you really want to validate this payment ?</string>
     <string name="are_you_sure">Are you sure?</string>
+    <string name="transaction_not_found">Transaction not found</string>
+
 </resources>

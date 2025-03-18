@@ -77,6 +77,8 @@ class DailySessionViewModel @Inject constructor(
                     }
                     else -> {
                         when(responseGetSessionsByDay.code()){
+                            400 -> displayToast(R.string.bad_request)
+                            401 -> displayToast(R.string.unauthorized)
                             404 -> displayToast(R.string.user_not_found)
                             else -> responseGetSessionsByDay.errorBody()?.let {
                                 Log.e(ContentValues.TAG, it.string())

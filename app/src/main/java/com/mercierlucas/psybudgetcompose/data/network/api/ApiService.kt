@@ -12,9 +12,11 @@ import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseSessionByDayD
 import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseSessionCreated
 import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseSessionsDueThisYear
 import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseUpdatePatientDto
+import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseUpdateTransactionDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.SessionDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.UpdatePatientDto
-import com.mercierlucas.psybudgetcompose.ui.navigation.Screen
+import com.mercierlucas.psybudgetcompose.data.network.dtos.UpdateTransactionDto
+
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -22,6 +24,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -103,6 +106,13 @@ interface ApiService {
         @Header("Authorization") token : String?,
         @Query("currentDate") currentDate: String
     ) : Response<ResponseSessionsDueThisYear>?
+
+    @PUT(ApiRoutes.UPDATE_TRANSACTION_PAID)
+    suspend fun updateTransactionToBePaid(
+        @Header("Authorization") token : String?,
+        @Path("id") transactionId : Long,
+        @Body updateTransactionDto: UpdateTransactionDto
+    ) : Response<ResponseUpdateTransactionDto>?
 
 
 

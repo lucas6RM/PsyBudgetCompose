@@ -81,6 +81,7 @@ class AllPatientsViewModel @Inject constructor(
                     }
                     else -> {
                         when(responseGetAllPatients.code()){
+
                             404 -> displayToast("User not found")
                             else -> responseGetAllPatients.errorBody()?.let {
                                 Log.e(ContentValues.TAG, it.string())

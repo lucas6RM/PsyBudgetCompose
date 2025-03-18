@@ -69,6 +69,7 @@ class DetailsSessionViewModel @Inject constructor(
                     else -> {
                         when(responseGetSessionById.code()){
                             400 -> displayToast(R.string.bad_request)
+                            401 -> displayToast(R.string.unauthorized)
                             404 -> displayToast(R.string.session_not_found)
                             else -> responseGetSessionById.errorBody()?.let {
                                 Log.e(ContentValues.TAG, it.string())

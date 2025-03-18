@@ -55,7 +55,7 @@ fun DatePickerDocked(
     Box() {
         OutlinedTextField(
             value = selectedDate,
-            onValueChange = { },
+            onValueChange = { onDateSelected.invoke(selectedDate) },
             label = { Text(text = textLabel) },
             readOnly = true,
             trailingIcon = {
@@ -92,7 +92,7 @@ fun DatePickerDocked(
                 }
             }
         }
-        onDateSelected.invoke(selectedDate)
+
     }
 }
 

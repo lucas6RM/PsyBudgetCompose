@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.WarningAmber
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -31,6 +32,7 @@ import com.mercierlucas.psybudgetcompose.ui.custom.HeaderCustom
 import com.mercierlucas.psybudgetcompose.ui.custom.SplitLine
 import com.mercierlucas.psybudgetcompose.ui.custom.datepickers.DatePickerDocked
 import com.mercierlucas.psybudgetcompose.utils.theme.PsyBudgetComposeTheme
+import kotlinx.coroutines.delay
 
 @Composable
 fun ValidatePaymentsScreen(
@@ -49,7 +51,10 @@ fun ValidatePaymentsScreen(
         validatePaymentsViewModel.getAllSessionsDueThisYear(selectedDate)
     },
         sessionsDueThisYear = sessionsDueThisYear,
-        false,{} //à modifier
+        onValidatePaymentConfirm = {session ->
+          validatePaymentsViewModel.updatePaymentValidated(session)
+        },
+        isProgressBarActive,
     )
 
 
@@ -68,13 +73,16 @@ fun ValidatePaymentsScreen(
 fun ValidatePaymentsView(
     onDateSelected: (String) -> Unit,
     sessionsDueThisYear: List<SessionDueThisYear>,
-    checkBoxChecked : Boolean,
-    onValidatePaymentConfirm: () -> Unit
-    ){
+    onValidatePaymentConfirm: (SessionDueThisYear) -> Unit,
+    isProgressBarActive: Boolean,
+){
 
-    var checkBoxIsChecked by remember {
-        mutableStateOf(checkBoxChecked)
+    var sessionToValidatePayment by remember {
+        mutableStateOf<SessionDueThisYear?>(null)
     }
+
+    var isPopupDisplayed by remember { mutableStateOf(false) }
+
     Box(
         modifier = Modifier.fillMaxSize(),
         ){
@@ -97,16 +105,30 @@ fun ValidatePaymentsView(
                 )
             }
             SplitLine()
-            ValidatePaymentsTable(sessionsDueThisYear, checkBoxIsChecked)
+            ValidatePaymentsTable(
+                sessionsDueThisYear,
+                onClickOnCheckbox = { sessionDueThisYear ->
+                    sessionToValidatePayment = sessionDueThisYear
+                    isPopupDisplayed = true
+                },
+                isPopupDisplayed
+                )
         }
-        if (checkBoxChecked)
+        if (isPopupDisplayed)
             ConfirmActionDialog(
-                onDismissRequest = { checkBoxIsChecked = false},
-                onConfirmation = { /*TODO*/ },
+                onDismissRequest = { isPopupDisplayed = false},
+                onConfirmation = {
+                    sessionToValidatePayment?.let { onValidatePaymentConfirm.invoke(it) }
+                    isPopupDisplayed = false
+                },
                 dialogTitle = stringResource(id = R.string.are_you_sure),
                 dialogText = stringResource(id = R.string.confirm_payment_validation),
                 icon = Icons.Rounded.WarningAmber
             )
+
+        if(isProgressBarActive){
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+        }
     }
 
 
