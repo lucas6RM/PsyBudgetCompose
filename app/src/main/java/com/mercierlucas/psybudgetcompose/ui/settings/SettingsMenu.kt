@@ -22,6 +22,7 @@ import com.mercierlucas.psybudgetcompose.ui.custom.CardButtonMenu
 import com.mercierlucas.psybudgetcompose.ui.custom.HeaderCustom
 import com.mercierlucas.psybudgetcompose.utils.DestinationsFromSettingsMenuTo
 import com.mercierlucas.psybudgetcompose.utils.DestinationsFromTransactionsMenuTo
+import com.mercierlucas.psybudgetcompose.utils.theme.MyLightGrey
 import com.mercierlucas.psybudgetcompose.utils.theme.MyRed
 import com.mercierlucas.psybudgetcompose.utils.theme.PsyBudgetComposeTheme
 
@@ -76,7 +77,8 @@ fun SettingsMenuView(
                     enableClick = true,
                     onClick = {
                         destinationClicked.invoke(
-                            DestinationsFromSettingsMenuTo.MODIFY_PROFILE)}
+                            DestinationsFromSettingsMenuTo.MODIFY_PROFILE)},
+                    containerColor = MyLightGrey
                 )
             }
 
@@ -94,7 +96,8 @@ fun SettingsMenuView(
                     enableClick = false,
                     onClick = {
                         destinationClicked.invoke(
-                            DestinationsFromSettingsMenuTo.MODIFY_THEME)}
+                            DestinationsFromSettingsMenuTo.MODIFY_THEME)},
+                    containerColor = MyLightGrey
                 )
 
             }
@@ -134,7 +137,7 @@ fun SettingsMenuView(
 @Preview(showBackground = true)
 @Composable
 fun SettingsPreview(){
-    PsyBudgetComposeTheme {
+    PsyBudgetComposeTheme (dynamicColor = false){
         SettingsMenuView({})
     }
 }

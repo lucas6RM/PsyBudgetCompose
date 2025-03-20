@@ -10,6 +10,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -22,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,6 +36,8 @@ import com.mercierlucas.psybudgetcompose.ui.custom.ButtonCustom
 import com.mercierlucas.psybudgetcompose.ui.custom.HeaderCustom
 import com.mercierlucas.psybudgetcompose.ui.custom.OutlinedTextFieldCustom
 import com.mercierlucas.psybudgetcompose.ui.custom.RadioButtonSingleSelectionHorizontal
+import com.mercierlucas.psybudgetcompose.utils.theme.PsyBudgetComposeTheme
+import java.util.Locale
 
 
 @Composable
@@ -163,7 +167,10 @@ fun CreatePatientView(isProgressBarActive: Boolean, onClickConfirmButton: (Creat
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = stringResource(id = R.string.income), fontSize = 18.sp)
+                Text(
+                    text = stringResource(id = R.string.income),
+                    style = MaterialTheme.typography.bodyMedium
+                )
                 RadioButtonSingleSelectionHorizontal(
                     radioOptions = listOf(
                         stringResource(id = R.string.low),
@@ -180,7 +187,10 @@ fun CreatePatientView(isProgressBarActive: Boolean, onClickConfirmButton: (Creat
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = stringResource(id = R.string.is_in_therapy), fontSize = 18.sp)
+                Text(
+                    text = stringResource(id = R.string.is_in_therapy),
+                    style = MaterialTheme.typography.bodyMedium
+                )
                 Checkbox(checked = isActive, onCheckedChange = { isActive = it })
             }
 
@@ -189,7 +199,10 @@ fun CreatePatientView(isProgressBarActive: Boolean, onClickConfirmButton: (Creat
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = stringResource(id = R.string.is_requiring_invoice), fontSize = 18.sp)
+                Text(
+                    text = stringResource(id = R.string.is_requiring_invoice),
+                    style = MaterialTheme.typography.bodyMedium
+                )
                 Checkbox(
                     checked = isRequiringInvoice,
                     onCheckedChange = { isRequiringInvoice = it })
@@ -203,8 +216,17 @@ fun CreatePatientView(isProgressBarActive: Boolean, onClickConfirmButton: (Creat
             ButtonCustom(modifier = Modifier.padding(vertical = 60.dp), onClick = {
                 onClickConfirmButton.invoke(
                     CreatePatientDto(
-                        firstName, lastName, phone, email, numberSS,
-                        address, postalCode, city, age, income, isActive,
+                        firstName.lowercase().replaceFirstChar(Char::uppercase),
+                        lastName.lowercase().replaceFirstChar(Char::uppercase) ,
+                        phone,
+                        email,
+                        numberSS,
+                        address,
+                        postalCode,
+                        city,
+                        age,
+                        income,
+                        isActive,
                         isRequiringInvoice
                     )
                 )
@@ -217,7 +239,7 @@ fun CreatePatientView(isProgressBarActive: Boolean, onClickConfirmButton: (Creat
 @Preview(showBackground = true)
 @Composable
 fun CreatePatientsPreview() {
-
+PsyBudgetComposeTheme(dynamicColor = false) {
     CreatePatientView(false) {}
-
+}
 }

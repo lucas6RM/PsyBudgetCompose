@@ -12,6 +12,7 @@ import androidx.compose.material.icons.rounded.ArrowDropUp
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -21,6 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.mercierlucas.psybudgetcompose.data.model.PatientLite
 import com.mercierlucas.psybudgetcompose.utils.PaymentMethod
+import com.mercierlucas.psybudgetcompose.utils.theme.MyAppleBlue
+import com.mercierlucas.psybudgetcompose.utils.theme.MyBlue
 import kotlin.enums.EnumEntries
 
 @Composable
@@ -46,7 +49,10 @@ fun DropDownPatientsInTherapyList(
             .padding(20.dp),
         horizontalArrangement = Arrangement.SpaceEvenly){
 
-        Text(titleList)
+        Text(
+            text= titleList,
+            style = MaterialTheme.typography.titleMedium
+        )
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -60,10 +66,15 @@ fun DropDownPatientsInTherapyList(
                 }
             ) {
                 if (itemPosition.value < 0)
-                    Text(text = "Select a patient")
+                    Text(text = "Select a patient",
+                        color = MyAppleBlue,
+                        style = MaterialTheme.typography.headlineMedium
+                        )
                 else
                     Text(text = "${patientsInTherapy[itemPosition.value].firstName} " +
-                        patientsInTherapy[itemPosition.value].lastName)
+                        patientsInTherapy[itemPosition.value].lastName,
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MyAppleBlue,)
 
 
                 if(!isDropDownExpanded.value)
@@ -85,7 +96,9 @@ fun DropDownPatientsInTherapyList(
 
                 patientsInTherapy.forEachIndexed { index, patient ->
                     DropdownMenuItem(text = {
-                        Text(text = "${patient.firstName} ${patient.lastName}")
+                        Text(text = "${patient.firstName} ${patient.lastName}",
+                            style = MaterialTheme.typography.headlineMedium,
+                            color = MyAppleBlue,)
                     },
                         onClick = {
                             isDropDownExpanded.value = false
@@ -123,7 +136,8 @@ fun DropDownEnumString(
             .padding(20.dp),
         horizontalArrangement = Arrangement.SpaceEvenly){
 
-        Text(titleList)
+        Text(titleList,
+            style = MaterialTheme.typography.titleMedium)
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
@@ -135,7 +149,10 @@ fun DropDownEnumString(
                     isDropDownExpanded.value = true
                 }
             ) {
-                Text(strEnumList[itemPosition.value])
+                Text(strEnumList[itemPosition.value],
+                    color = MyAppleBlue,
+                    style = MaterialTheme.typography.headlineMedium,
+                    )
 
 
                 if(!isDropDownExpanded.value)
@@ -157,7 +174,10 @@ fun DropDownEnumString(
 
                 strEnumList.forEachIndexed { index, username ->
                     DropdownMenuItem(text = {
-                        Text(text = username)
+                        Text(text = username,
+                            color = MyAppleBlue,
+                            style = MaterialTheme.typography.headlineMedium,
+                        )
                     },
                         onClick = {
                             isDropDownExpanded.value = false

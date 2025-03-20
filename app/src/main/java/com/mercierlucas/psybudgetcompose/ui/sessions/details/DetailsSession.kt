@@ -43,7 +43,7 @@ fun DetailsSessionScreen(
     detailsSessionViewModel: DetailsSessionViewModel,
     idSessionSelected: Long
 ) {
-    detailsSessionViewModel.getSessionById(idSessionSelected)
+
 
     val sessionToDisplay by detailsSessionViewModel.sessionIdentifiedStateFlow.collectAsState()
 
@@ -70,6 +70,10 @@ fun DetailsSessionScreen(
         detailsSessionViewModel.goToDailySessionsSharedFlow.collect { _ ->
             navController.popBackStack()
         }
+    }
+
+    LaunchedEffect (true){
+        detailsSessionViewModel.getSessionById(idSessionSelected)
     }
 
 }

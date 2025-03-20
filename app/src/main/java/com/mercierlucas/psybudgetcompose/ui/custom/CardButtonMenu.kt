@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,7 +34,7 @@ fun CardButtonMenu(
         ,
         colors = CardDefaults.cardColors(
             containerColor = containerColor),
-        border = BorderStroke(1.dp, Color.Black),
+        //border = BorderStroke(1.dp, Color.Black),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 4.dp
         )
@@ -47,12 +48,12 @@ fun CardButtonMenu(
             )){
             Text(
                 text = text,
-                fontSize = 20.sp,
                 modifier = Modifier
                     .fillMaxSize()
                     .wrapContentHeight(Alignment.CenterVertically)
                 ,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.titleLarge
             )
         }
 

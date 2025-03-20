@@ -57,7 +57,7 @@ fun TableHeader(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .background(MaterialTheme.colorScheme.primaryContainer)
             .padding(vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically
         //horizontalArrangement = Arrangement.SpaceEvenly
@@ -275,7 +275,7 @@ fun PreviewScrollableTable(
     }
 
     PsyBudgetComposeTheme (darkTheme = false,dynamicColor = false){
-        //ValidatePaymentsTable(sessionsDueThisYear)
+        //ValidatePaymentsTable()
     }
 
 }

@@ -48,16 +48,16 @@ fun DatePickerDocked(
 
     var showDatePicker by remember { mutableStateOf(false) }
     val datePickerState = rememberDatePickerState(initialSelectedDateMillis = currentDateInMillis)
-    var selectedDate by remember {
-        mutableStateOf(datePickerState.selectedDateMillis?.let {
-            convertMillisToDate(it)
-        } ?: "")
-    }
+    var selectedDate = datePickerState.selectedDateMillis?.let {
+        convertMillisToDate(it)
+    } ?: ""
+
 
     Box() {
         OutlinedTextField(
             value = selectedDate,
-            onValueChange = { onDateSelected.invoke(selectedDate) },
+            onValueChange = {
+                onDateSelected.invoke(selectedDate) },
             label = { Text(text = textLabel) },
             readOnly = true,
             trailingIcon = {

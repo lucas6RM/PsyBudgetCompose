@@ -19,6 +19,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -47,6 +49,7 @@ import com.mercierlucas.psybudgetcompose.ui.custom.SplitLine
 import com.mercierlucas.psybudgetcompose.navigation.Screen
 import com.mercierlucas.psybudgetcompose.utils.theme.MyBlue
 import com.mercierlucas.psybudgetcompose.utils.theme.MyGreen
+import com.mercierlucas.psybudgetcompose.utils.theme.PsyBudgetComposeTheme
 
 
 @Composable
@@ -143,8 +146,8 @@ fun AllPatientsView(
                             onClickItem.invoke(patient.id)
                         },
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.tertiaryContainer),
-                    border = BorderStroke(1.dp, Color.Black),
+                        containerColor = MaterialTheme.colorScheme.primaryContainer),
+                    //border = BorderStroke(1.2.dp, Color.Black),
                     elevation = CardDefaults.cardElevation( defaultElevation = 2.dp)
                 ){
                     ItemPatientLite(patient = patient)
@@ -162,12 +165,16 @@ fun AllPatientsView(
                 ,
             horizontalArrangement = Arrangement.Center){
             Column (horizontalAlignment = Alignment.Start){
-            Text(text = "Total amount of patients in therapy : " +
+            Text(
+                text = "Total amount of patients in therapy : " +
                     "${patientsList.filter { it.isActive }.size}",
-                fontSize = 18.sp)
+                style = MaterialTheme.typography.labelSmall
+            )
                 Spacer(Modifier.padding(vertical = 10.dp))
-            Text(text = "Total amount of patients : ${patientsList.size}",
-                fontSize = 18.sp)
+            Text(
+                text = "Total amount of patients : ${patientsList.size}",
+                style = MaterialTheme.typography.labelSmall
+            )
             }
         }
 
@@ -201,9 +208,8 @@ fun TopRowTable(
             horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = "Lastname",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(10.dp)
+                modifier = Modifier.padding(10.dp),
+                style = MaterialTheme.typography.labelLarge
             )
         }
 
@@ -211,8 +217,8 @@ fun TopRowTable(
             horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = "Firstname",
-                fontSize = 18.sp,
-                modifier = Modifier.padding(10.dp)
+                modifier = Modifier.padding(10.dp),
+                style = MaterialTheme.typography.labelLarge
             )
         }
         Column(modifier = Modifier.weight(1F),
@@ -221,7 +227,7 @@ fun TopRowTable(
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = "in Therapy ?",
-                    fontSize = 15.sp,
+                    style = MaterialTheme.typography.labelMedium
                 )
                 Checkbox(
                     checked = isFilterCheckedState.value,
@@ -253,9 +259,8 @@ fun ItemPatientLite(patient: PatientLite,modifier: Modifier = Modifier){
             horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = patient.lastName,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(vertical = 10.dp)
+                modifier = Modifier.padding(vertical = 10.dp),
+                style = MaterialTheme.typography.labelSmall
             )
         }
 
@@ -263,8 +268,8 @@ fun ItemPatientLite(patient: PatientLite,modifier: Modifier = Modifier){
             horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = patient.firstName,
-                fontSize = 18.sp,
-                modifier = Modifier.padding(vertical = 10.dp)
+                modifier = Modifier.padding(vertical = 10.dp),
+                style = MaterialTheme.typography.labelSmall
             )
         }
 
@@ -284,11 +289,14 @@ fun ItemPatientLite(patient: PatientLite,modifier: Modifier = Modifier){
 @Preview(showBackground = true)
 @Composable
 fun AllPatientsPreview() {
-    AllPatientsView(
-        listOf(
-        PatientLite(0,"lucasdsqsdqsd","mercier",true),
-        PatientLite(1,"tonton","antoine", false)
-    ), false,{},{},{})
+    PsyBudgetComposeTheme (dynamicColor = false){
+        AllPatientsView(
+            listOf(
+                PatientLite(0,"lucasdsqsdqsd","mercier",true),
+                PatientLite(1,"tonton","antoine", false)
+            ), false,{},{},{})
+
+    }
 
 }
 

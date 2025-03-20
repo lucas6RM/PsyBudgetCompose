@@ -138,6 +138,6 @@ fun ValidatePaymentsView(
 @Composable
 fun ValidatePaymentsPreview(){
     PsyBudgetComposeTheme (dynamicColor = false){
-        //ValidatePaymentsView({}, sessionsDueThisYear)
+        //ValidatePaymentsView({}, null)
     }
 }

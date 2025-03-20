@@ -19,6 +19,7 @@ import com.mercierlucas.psybudgetcompose.ui.custom.CardButtonMenu
 import com.mercierlucas.psybudgetcompose.ui.custom.HeaderCustom
 import com.mercierlucas.psybudgetcompose.navigation.Screen
 import com.mercierlucas.psybudgetcompose.utils.DestinationsFromTransactionsMenuTo
+import com.mercierlucas.psybudgetcompose.utils.theme.MyLightGrey
 import com.mercierlucas.psybudgetcompose.utils.theme.PsyBudgetComposeTheme
 
 @Composable
@@ -84,7 +85,8 @@ fun MenuTransactionView(
                     enableClick = false,
                     onClick = {
                         destinationClicked.invoke(
-                            DestinationsFromTransactionsMenuTo.TRANSACTIONS_BY_PATIENTS)}
+                            DestinationsFromTransactionsMenuTo.TRANSACTIONS_BY_PATIENTS)},
+                    containerColor = MyLightGrey
                 )
 
             }

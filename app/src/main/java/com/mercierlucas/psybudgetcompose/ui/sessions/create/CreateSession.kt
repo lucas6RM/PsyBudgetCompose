@@ -9,7 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxColors
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -40,6 +43,7 @@ import com.mercierlucas.psybudgetcompose.ui.custom.HeaderCustom
 import com.mercierlucas.psybudgetcompose.ui.custom.OutlinedTextFieldCustom
 import com.mercierlucas.psybudgetcompose.ui.custom.datepickers.DatePickerDocked
 import com.mercierlucas.psybudgetcompose.utils.PaymentMethod
+import com.mercierlucas.psybudgetcompose.utils.theme.MyAppleBlue
 import com.mercierlucas.psybudgetcompose.utils.theme.PsyBudgetComposeTheme
 import kotlinx.coroutines.delay
 import java.util.Calendar
@@ -107,7 +111,6 @@ fun CreateSessionView(
     var isSessionCancelled          by remember { mutableStateOf(false) }
     var isPaymentValidated          by remember { mutableStateOf(false) }
     var paymentMethodSelected       by remember { mutableStateOf(PaymentMethod.CB.str) }
-
     var dateSelected                by remember {
         mutableStateOf(convertMillisToDate(Calendar.getInstance().timeInMillis))
     }
@@ -164,7 +167,9 @@ fun CreateSessionView(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = stringResource(id = R.string.use_agreement), fontSize = 18.sp)
+                Text(
+                    text = stringResource(id = R.string.use_agreement),
+                    style = MaterialTheme.typography.titleMedium)
                 Checkbox(
                     checked = isUsingAgreement,
                     onCheckedChange = {yes ->
@@ -172,14 +177,16 @@ fun CreateSessionView(
                         if(yes)
                             onClickUseAgreement.invoke()
                     },
-                    enabled = if(isSessionCancelled) false else true
+                    enabled = if(isSessionCancelled) false else true,
+                    colors = CheckboxDefaults.colors(uncheckedColor = MyAppleBlue)
                     )
                 Spacer(Modifier.padding(10.dp))
                 if (isUsingAgreement)
                     Text(
                         text = stringResource(
                             id = R.string.remains_s,remainingAgreement.toString()),
-                        fontSize = 18.sp
+                        color = MyAppleBlue,
+                        style = MaterialTheme.typography.titleMedium
                     )
             }
 
@@ -190,7 +197,7 @@ fun CreateSessionView(
             ) {
                 Text(
                     text = stringResource(id = R.string.session_cancelled_by_patient),
-                    fontSize = 18.sp
+                    style = MaterialTheme.typography.titleMedium
                 )
                 Checkbox(
                     checked = isSessionCancelled,
@@ -199,7 +206,8 @@ fun CreateSessionView(
                             amount=0
                             isUsingAgreement = false
                         }
-                    }
+                    },
+                    colors = CheckboxDefaults.colors(uncheckedColor = MyAppleBlue)
                 )
             }
 
@@ -210,12 +218,13 @@ fun CreateSessionView(
             ) {
                 Text(
                     text = stringResource(id = R.string.payment_validated),
-                    fontSize = 18.sp
+                    style = MaterialTheme.typography.titleMedium
                 )
                 Checkbox(
                     checked = isPaymentValidated,
                     onCheckedChange = { isPaymentValidated = it },
-                    enabled = if(isSessionCancelled) false else true
+                    enabled = if(isSessionCancelled) false else true,
+                    colors = CheckboxDefaults.colors(uncheckedColor = MyAppleBlue)
                 )
             }
 
@@ -247,7 +256,7 @@ fun CreateSessionView(
 @Composable
 fun CreateSessionPreview(){
 
-    PsyBudgetComposeTheme(darkTheme = false,dynamicColor = true) {
+    PsyBudgetComposeTheme(darkTheme = false,dynamicColor = false) {
         CreateSessionView(
             true, emptyList(),{},{},0,0L,{})
     }

@@ -48,7 +48,7 @@ fun RadioButtonSingleSelectionHorizontal(
                 )
                 Text(
                     text = text,
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(start = 16.dp)
                 )
             }

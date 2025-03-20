@@ -46,10 +46,10 @@
     <string name="find_sessions_by_patient">Find sessions by patient\n(coming soon)</string>
     <string name="sessions_by_period">Sessions by period\n(coming soon)</string>
     <string name="daily_sessions">Daily sessions</string>
-    <string name="number_of_sessions_completed_this_day_s">Number of completed sessions this day : %d</string>
+    <string name="number_of_sessions_completed_this_day_s">Number of completed\nsessions this day : %d</string>
     <string name="total_amount_paid_and_validated_s">Total amount paid and validated : %d</string>
     <string name="total_amount_due_to_be_validated_s">Total amount due to be validated : %d</string>
-    <string name="session_number_d">Session n° %d</string>
+    <string name="session_number_d">Sess n° %1$s</string>
     <string name="session_informations_detailed">Session informations detailed</string>
     <string name="session_not_found">Session not found !</string>
     <string name="session_not_found_please_go_back">Session not found, please go back</string>
@@ -79,12 +79,12 @@
     <string name="settings_menu">Settings Menu</string>
     <string name="select_month">Select full month from date :</string>
     <string name="number_of_agreements_used">Number of agreements used : </string>
-    <string name="credit_card">Credit\ncard : </string>
-    <string name="bank_check">Bank\ncheck : </string>
-    <string name="bank_transfer">Bank\ntransfer : </string>
-    <string name="cash">Cash : </string>
-    <string name="third_party_payer">Third-party\npayer : </string>
-    <string name="total_incomes">Total\nincomes : </string>
+    <string name="credit_card">Credit\ncard (€): </string>
+    <string name="bank_check">Bank\ncheck (€): </string>
+    <string name="bank_transfer">Bank\ntransfer (€): </string>
+    <string name="cash">Cash (€): </string>
+    <string name="third_party_payer">Third-party\npayer (€): </string>
+    <string name="total_incomes">Total\nincomes (€): </string>
     <string name="paid">"paid : "</string>
     <string name="due">"due : "</string>
 

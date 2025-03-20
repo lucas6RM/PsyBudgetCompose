@@ -1,5 +1,6 @@
 package com.mercierlucas.psybudgetcompose.ui.transactions.incomes
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -93,7 +95,6 @@ fun IncomesByMonthView(
                 }
             )
         }
-        SplitLine()
 
         Row (
             Modifier
@@ -102,6 +103,8 @@ fun IncomesByMonthView(
             verticalAlignment = Alignment.CenterVertically
         ){
             Card(
+                elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
+               // border = BorderStroke(1.dp, Color.Black),
                 modifier = Modifier
                     .padding(10.dp)
                     .fillMaxSize(),
@@ -139,9 +142,6 @@ fun IncomesByMonthView(
 
         }
 
-        SplitLine()
-
-
         Row (
             Modifier
                 .fillMaxWidth()
@@ -149,6 +149,8 @@ fun IncomesByMonthView(
             verticalAlignment = Alignment.CenterVertically
         ){
             Card(
+                elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
+                // border = BorderStroke(1.dp, Color.Black),
                 modifier = Modifier
                     .padding(10.dp)
                     .fillMaxSize(),
@@ -216,7 +218,7 @@ fun IncomesByMonthView(
 
         }
 
-        SplitLine()
+
 
 
         Row (
@@ -225,6 +227,8 @@ fun IncomesByMonthView(
                 .weight(1f)
         ){
             Card(
+                elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
+                // border = BorderStroke(1.dp, Color.Black),
                 modifier = Modifier
                     .padding(10.dp)
                     .fillMaxSize(),
@@ -292,7 +296,7 @@ fun IncomesByMonthView(
             }
 
         }
-        SplitLine()
+
 
         Row (
             Modifier
@@ -300,6 +304,8 @@ fun IncomesByMonthView(
                 .weight(1f)
         ){
             Card(
+                elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
+                // border = BorderStroke(1.dp, Color.Black),
                 modifier = Modifier
                     .padding(10.dp)
                     .fillMaxSize(),
@@ -367,7 +373,7 @@ fun IncomesByMonthView(
             }
 
         }
-        SplitLine()
+
 
         Row (
             Modifier
@@ -375,6 +381,8 @@ fun IncomesByMonthView(
                 .weight(1f)
         ){
             Card(
+                elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
+                // border = BorderStroke(1.dp, Color.Black),
                 modifier = Modifier
                     .padding(10.dp)
                     .fillMaxSize(),
@@ -444,7 +452,7 @@ fun IncomesByMonthView(
 
         }
 
-        SplitLine()
+
 
         Row (
             Modifier
@@ -452,6 +460,8 @@ fun IncomesByMonthView(
                 .weight(1f)
         ){
             Card(
+                elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
+                // border = BorderStroke(1.dp, Color.Black),
                 modifier = Modifier
                     .padding(10.dp)
                     .fillMaxSize(),
@@ -522,7 +532,6 @@ fun IncomesByMonthView(
 
         }
 
-        SplitLine()
 
         Row (
             Modifier
@@ -530,6 +539,8 @@ fun IncomesByMonthView(
                 .weight(1f)
         ){
             Card(
+                elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
+                // border = BorderStroke(1.dp, Color.Black),
                 modifier = Modifier
                     .padding(10.dp)
                     .fillMaxSize(),

@@ -13,6 +13,7 @@ import com.mercierlucas.psybudgetcompose.data.network.dtos.PatientDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.UpdatePatientDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -62,8 +63,8 @@ class PatientByIdViewModel @Inject constructor(
                 when{
                     responseGetPatient == null -> Log.e(ContentValues.TAG,"Pas de reponse du serveur")
                     responseGetPatient.isSuccessful && body !=null ->{
-                        _patientSelectedStateFlow.value = body
                         displayToast(R.string.patient_identified)
+                        _patientSelectedStateFlow.value = body
                     }
                     else -> {
                         when(responseGetPatient.code()){
@@ -127,6 +128,7 @@ class PatientByIdViewModel @Inject constructor(
 
     fun deletePatientById(idPatientToDelete: Long) {
         viewModelScope.launch {
+
             try {
                 val responseDeletePatient = withContext(Dispatchers.IO){
                     apiService.deletePatient(myPrefs.token,idPatientToDelete)

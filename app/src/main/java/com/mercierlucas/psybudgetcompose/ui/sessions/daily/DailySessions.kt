@@ -1,6 +1,8 @@
 package com.mercierlucas.psybudgetcompose.ui.sessions.daily
 
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,6 +29,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.mercierlucas.feedarticles.Utils.showToast
+import com.mercierlucas.feedarticlesjetpack.utils.convertMillisToDate
 import com.mercierlucas.psybudgetcompose.R
 import com.mercierlucas.psybudgetcompose.data.custom.SessionByDayLite
 import com.mercierlucas.psybudgetcompose.data.custom.SessionsByDayStats
@@ -48,6 +54,7 @@ import com.mercierlucas.psybudgetcompose.navigation.Screen
 import com.mercierlucas.psybudgetcompose.utils.theme.MyGreen
 
 import com.mercierlucas.psybudgetcompose.utils.theme.PsyBudgetComposeTheme
+import java.util.Calendar
 
 
 @Composable
@@ -61,6 +68,7 @@ fun DailySessionsScreen(
     val sessionsByDayStats by dailySessionViewModel.sessionsByDayStatsStateFlow.collectAsState()
 
     val context = LocalContext.current
+
 
     DailySessionsView(
         onClickToCreateSession = {
@@ -86,6 +94,11 @@ fun DailySessionsScreen(
         }
     }
 
+    LaunchedEffect (true){
+        val currentDateFormatted = convertMillisToDate(Calendar.getInstance().timeInMillis)
+        dailySessionViewModel.getSessionsByDay(currentDateFormatted)
+    }
+
 }
 
 
@@ -97,7 +110,6 @@ fun DailySessionsView(
     sessionsByDayStats: SessionsByDayStats,
     onClickInfoDetailed: (Long) -> Unit
     ) {
-
 
     Box {
         Column(Modifier.fillMaxSize()) {
@@ -150,13 +162,13 @@ fun DailySessionsView(
                                 .padding(5.dp),
                             colors = CardDefaults.cardColors(
                                 containerColor = MaterialTheme.colorScheme.primaryContainer),
-                            border = BorderStroke(1.dp, Color.Black),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                            elevation = CardDefaults.cardElevation( defaultElevation = 2.dp)
                         ) {
                             ItemSessionByDayLite(
                                 session = session,
                                 index = index,
                                 onClickInfoDetailed = onClickInfoDetailed)
+                            Log.i(TAG, index.toString())
                             index++
                         }
                     }
@@ -177,7 +189,7 @@ fun DailySessionsView(
                                 id = R.string.number_of_sessions_completed_this_day_s,
                                 sessionsByDayStats.numberOfCompletedSessions
                             ),
-                            fontSize = 18.sp
+                            style = MaterialTheme.typography.labelSmall
                         )
                         Spacer(Modifier.padding(vertical = 10.dp))
                         Text(
@@ -185,7 +197,7 @@ fun DailySessionsView(
                                 id = R.string.total_amount_paid_and_validated_s,
                                 sessionsByDayStats.totalAmountPaid
                             ),
-                            fontSize = 18.sp
+                            style = MaterialTheme.typography.labelSmall
                         )
                         Spacer(Modifier.padding(vertical = 10.dp))
                         Text(
@@ -193,7 +205,7 @@ fun DailySessionsView(
                                 id = R.string.total_amount_due_to_be_validated_s,
                                 sessionsByDayStats.totalAmountToBeValidated
                             ),
-                            fontSize = 18.sp
+                            style = MaterialTheme.typography.labelSmall
                         )
                     }
                 }
@@ -207,8 +219,8 @@ fun DailySessionsView(
 @Composable
 fun DailySessionsPreview(){
 
-    PsyBudgetComposeTheme {
-        //DailySessionsView({})
+    PsyBudgetComposeTheme (dynamicColor = false){
+        DailySessionsView({},{}, emptyList(), SessionsByDayStats(3,3,3),{})
     }
 
 }

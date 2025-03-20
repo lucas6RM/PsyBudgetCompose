@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.twotone.Settings
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,8 +31,13 @@ import androidx.navigation.NavHostController
 import com.mercierlucas.psybudgetcompose.ui.custom.CardButtonMenu
 import com.mercierlucas.psybudgetcompose.ui.custom.HeaderCustom
 import com.mercierlucas.psybudgetcompose.navigation.Screen
+import com.mercierlucas.psybudgetcompose.ui.custom.SplitLine
 import com.mercierlucas.psybudgetcompose.utils.DestinationsFromMainMenuTo
 import com.mercierlucas.psybudgetcompose.utils.theme.MyBlue
+import com.mercierlucas.psybudgetcompose.utils.theme.MyLightGrey
+import com.mercierlucas.psybudgetcompose.utils.theme.MyPink
+import com.mercierlucas.psybudgetcompose.utils.theme.MyRed
+import com.mercierlucas.psybudgetcompose.utils.theme.PsyBudgetComposeTheme
 
 
 @Composable
@@ -129,9 +136,10 @@ fun MainMenuView(
                 }
                 Column(modifier = Modifier
                     .weight(1F)) {
-                    CardButtonMenu(text = "PaidInvoices",enableClick = false,
+                    CardButtonMenu(text = "PaidInvoices\n(coming soon)",enableClick = false,
                         onClick = { destinationClicked
-                                .invoke(DestinationsFromMainMenuTo.PAID_INVOICES) }
+                                .invoke(DestinationsFromMainMenuTo.PAID_INVOICES) },
+                        containerColor = MyLightGrey
                     )
                 }
             }
@@ -142,9 +150,11 @@ fun MainMenuView(
                 .padding(horizontal = 5.dp)
                 .padding(bottom = 5.dp),
                 horizontalArrangement = Arrangement.Center){
-                CardButtonMenu(text = "Statistics",enableClick = false,
+                CardButtonMenu(text = "Statistics\n(coming soon)",enableClick = false,
                     onClick = { destinationClicked
-                        .invoke(DestinationsFromMainMenuTo.STATISTICS) })
+                        .invoke(DestinationsFromMainMenuTo.STATISTICS) },
+                    containerColor = MyLightGrey
+                    )
             }
         }
     }
@@ -164,31 +174,26 @@ fun WelcomeBanner(userFirstName: String?,destinationClicked:(DestinationsFromMai
 
         ) {
             Text(
-                text = "Bonjour $userFirstName !",
-                fontSize = 25.sp,
-                color = Color.White
+                text = "Hello $userFirstName !",
+                style = MaterialTheme.typography.headlineLarge
             )
             Icon(
-                imageVector = Icons.Outlined.Settings,
+                imageVector = Icons.TwoTone.Settings,
                 contentDescription = null,
                 modifier = Modifier
-                    .size(40.dp)
+                    .size(50.dp)
                     .clickable { destinationClicked.invoke(DestinationsFromMainMenuTo.SETTINGS) },
-                tint = Color.Black
             )
         }
     }
-    Row(
-        modifier = Modifier
-            .background(Color.Black)
-            .fillMaxWidth()
-            .padding(1.dp)
-    ) {}
+    SplitLine()
 }
 
 @Preview(showBackground = true)
 @Composable
 fun MainMenuPreview() {
-    MainMenuView("Julia", {})
+    PsyBudgetComposeTheme(dynamicColor = false) {
+        MainMenuView("Julia", {})
+    }
 
 }

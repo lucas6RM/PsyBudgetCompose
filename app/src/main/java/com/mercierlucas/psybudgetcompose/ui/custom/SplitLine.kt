@@ -15,6 +15,6 @@ fun SplitLine(){
         modifier = Modifier
             .background(Color.Black)
             .fillMaxWidth()
-            .padding(1.dp)
+            .padding(0.8.dp)
     ) {}
 }

@@ -19,6 +19,7 @@ import com.mercierlucas.psybudgetcompose.ui.custom.HeaderCustom
 import com.mercierlucas.psybudgetcompose.navigation.Screen
 import com.mercierlucas.psybudgetcompose.utils.DestinationsFromMainMenuTo
 import com.mercierlucas.psybudgetcompose.utils.DestinationsFromSessionsMenuTo
+import com.mercierlucas.psybudgetcompose.utils.theme.MyLightGrey
 import com.mercierlucas.psybudgetcompose.utils.theme.PsyBudgetComposeTheme
 
 @Composable
@@ -99,7 +100,8 @@ fun MenuSessionView(
                     text = stringResource(id = R.string.sessions_by_period),
                     enableClick = false,
                     onClick = {
-                        destinationClicked.invoke(DestinationsFromSessionsMenuTo.SESSIONS_BY_PERIOD)}
+                        destinationClicked.invoke(DestinationsFromSessionsMenuTo.SESSIONS_BY_PERIOD)},
+                    containerColor = MyLightGrey
                 )
 
             }
@@ -118,7 +120,8 @@ fun MenuSessionView(
                     enableClick = false,
                     onClick = {
                         destinationClicked.invoke(DestinationsFromSessionsMenuTo.SESSIONS_BY_PATIENTS)
-                    }
+                    },
+                    containerColor = MyLightGrey
                 )
 
             }
@@ -146,7 +149,7 @@ fun MenuSessionView(
 @Preview (showBackground = true)
 @Composable
 fun MenuSessionPreview(){
-    PsyBudgetComposeTheme(dynamicColor = true) {
+    PsyBudgetComposeTheme(dynamicColor = false) {
         MenuSessionView({})
     }
 

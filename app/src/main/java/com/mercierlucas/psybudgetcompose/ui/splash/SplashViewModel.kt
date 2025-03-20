@@ -23,7 +23,7 @@ class SplashViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            delay(5000)
+            delay(1000)
             _isUserLoggedSharedFlow.emit(myPrefs.token != null)
         }
     }

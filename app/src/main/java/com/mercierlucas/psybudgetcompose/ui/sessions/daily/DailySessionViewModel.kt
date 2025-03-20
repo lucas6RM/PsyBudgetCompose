@@ -50,12 +50,6 @@ class DailySessionViewModel @Inject constructor(
         }
     }
 
-    init {
-
-        val currentDateFormatted = convertMillisToDate(Calendar.getInstance().timeInMillis)
-        getSessionsByDay(currentDateFormatted)
-
-    }
 
     fun getSessionsByDay(strDateFormatted : String){
         viewModelScope.launch {

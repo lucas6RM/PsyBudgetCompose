@@ -12,6 +12,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -48,7 +49,7 @@ fun PatientByIdScreen(
     patientByIdViewModel: PatientByIdViewModel,
     idPatientSelected: Long
 ) {
-    patientByIdViewModel.setPatientInfos(idPatientSelected)
+
     val patientSelected by patientByIdViewModel.patientSelectedStateFlow.collectAsState()
 
     val context = LocalContext.current
@@ -77,12 +78,14 @@ fun PatientByIdScreen(
 
 
     LaunchedEffect(true) {
-        patientByIdViewModel.goToAllPatientScreenSharedFlow.collect { yes ->
-            if(yes)
-                navController.popBackStack()
+        patientByIdViewModel.goToAllPatientScreenSharedFlow.collect { _ ->
+            navController.popBackStack()
         }
     }
 
+    LaunchedEffect(true) {
+        patientByIdViewModel.setPatientInfos(idPatientSelected)
+    }
 }
 
 @Composable
@@ -119,10 +122,10 @@ fun PatientByIdView(
                 .fillMaxWidth()
                 .padding(10.dp),
             horizontalArrangement = Arrangement.End,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.Top
         ){
 
-            Text(text = "Modify :")
+            Text(text = "Enable\nModify :")
             Spacer(modifier = Modifier.padding(horizontal = 10.dp))
             Switch(
                 checked = isModifyClicked,
@@ -212,7 +215,7 @@ fun PatientByIdView(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Income : ", fontSize = 18.sp)
+                Text(text = "Income : ", style = MaterialTheme.typography.bodyMedium)
                 RadioButtonSingleSelectionHorizontal(
                     radioOptions = listOf("Low", "Mid", "High"),
                     callbackRBSelected = { radioButtonSelected ->
@@ -227,7 +230,8 @@ fun PatientByIdView(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Is in therapy : ", fontSize = 18.sp)
+                Text(text = "Is in therapy : ",
+                    style = MaterialTheme.typography.bodyMedium)
                 Checkbox(
                     checked = isActive,
                     onCheckedChange = { isActive = it },
@@ -240,7 +244,8 @@ fun PatientByIdView(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Is Requiring Invoice : ", fontSize = 18.sp)
+                Text(text = "Is Requiring Invoice : ",
+                    style = MaterialTheme.typography.bodyMedium)
                 Checkbox(
                     checked = isRequiringInvoice,
                     onCheckedChange = { isRequiringInvoice = it },
@@ -262,6 +267,7 @@ fun PatientByIdView(
                                 containerColor = Color.Red),
                             onClick = {
                                 onDeleteClick.invoke(patientIdentified.id)
+                                isModifyClicked = false
                             }
                         )
 
