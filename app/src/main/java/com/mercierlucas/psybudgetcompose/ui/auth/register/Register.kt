@@ -27,7 +27,7 @@ import com.mercierlucas.psybudgetcompose.data.network.dtos.RegisterDto
 import com.mercierlucas.psybudgetcompose.ui.custom.ButtonCustom
 import com.mercierlucas.psybudgetcompose.ui.custom.HeaderCustom
 import com.mercierlucas.psybudgetcompose.ui.custom.OutlinedTextFieldCustom
-import com.mercierlucas.psybudgetcompose.ui.navigation.Screen
+import com.mercierlucas.psybudgetcompose.navigation.Screen
 
 @Composable
 fun RegisterScreen(navController: NavHostController, registerViewModel: RegisterViewModel) {

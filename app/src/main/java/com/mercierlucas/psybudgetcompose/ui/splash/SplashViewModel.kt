@@ -22,10 +22,8 @@ class SplashViewModel @Inject constructor(
     val isUserLoggedSharedFlow = _isUserLoggedSharedFlow.asSharedFlow()
 
     init {
-        //myPrefs.token=null // <------ à supprimer
-
         viewModelScope.launch {
-            delay(2000)
+            delay(5000)
             _isUserLoggedSharedFlow.emit(myPrefs.token != null)
         }
     }

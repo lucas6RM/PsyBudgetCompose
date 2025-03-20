@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.mercierlucas.psybudgetcompose.R
-import com.mercierlucas.psybudgetcompose.ui.navigation.Screen
+import com.mercierlucas.psybudgetcompose.navigation.Screen
 
 
 @Composable
@@ -53,9 +53,9 @@ fun SplashView(){
     )
     {
         Image(
-            painter = painterResource(id = R.drawable.nintendologo),
+            painter = painterResource(id = R.drawable.psy_budget_logo2),
             contentDescription = "splash logo",
-            modifier = Modifier.size(300.dp))
+            modifier = Modifier.fillMaxSize())
     }
 }
 

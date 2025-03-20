@@ -22,15 +22,17 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun CardButtonMenu(
+    containerColor : Color = MaterialTheme.colorScheme.secondaryContainer,
+    modifier: Modifier = Modifier,
     text:String = "CardButtonMenu",
     enableClick: Boolean = true,
     onClick: () -> Unit = {}){
     Card (
-        modifier = Modifier
+        modifier = modifier
             .padding(5.dp)
         ,
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondaryContainer),
+            containerColor = containerColor),
         border = BorderStroke(1.dp, Color.Black),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 4.dp

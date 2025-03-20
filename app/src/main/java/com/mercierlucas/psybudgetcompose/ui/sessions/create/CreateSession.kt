@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.mercierlucas.feedarticles.Utils.showToast
+import com.mercierlucas.feedarticlesjetpack.utils.convertMillisToDate
 import com.mercierlucas.psybudgetcompose.R
 import com.mercierlucas.psybudgetcompose.data.model.PatientLite
 import com.mercierlucas.psybudgetcompose.data.network.dtos.CreateSessionDto
@@ -41,6 +42,7 @@ import com.mercierlucas.psybudgetcompose.ui.custom.datepickers.DatePickerDocked
 import com.mercierlucas.psybudgetcompose.utils.PaymentMethod
 import com.mercierlucas.psybudgetcompose.utils.theme.PsyBudgetComposeTheme
 import kotlinx.coroutines.delay
+import java.util.Calendar
 import kotlin.time.Duration.Companion.seconds
 
 @Composable
@@ -104,9 +106,11 @@ fun CreateSessionView(
     var isUsingAgreement            by remember { mutableStateOf(false) }
     var isSessionCancelled          by remember { mutableStateOf(false) }
     var isPaymentValidated          by remember { mutableStateOf(false) }
-    var dateSelected                by remember { mutableStateOf("") }
-    var paymentMethodSelected       by remember { mutableStateOf("") }
+    var paymentMethodSelected       by remember { mutableStateOf(PaymentMethod.CB.str) }
 
+    var dateSelected                by remember {
+        mutableStateOf(convertMillisToDate(Calendar.getInstance().timeInMillis))
+    }
 
 
     Column (
@@ -142,11 +146,10 @@ fun CreateSessionView(
 
             DropDownEnumString(
                 titleList = "Payment Method :",
-                PaymentMethod.entries,
-                onPaymentMethodSelected = { paymentMethod ->
-                    paymentMethodSelected = paymentMethod
-                }
-            )
+                PaymentMethod.entries
+            ) { paymentMethod ->
+                paymentMethodSelected = paymentMethod
+            }
 
             OutlinedTextFieldCustom(
                 value = amount.toString(),

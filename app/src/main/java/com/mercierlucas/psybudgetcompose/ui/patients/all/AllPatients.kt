@@ -44,7 +44,7 @@ import com.mercierlucas.psybudgetcompose.data.model.PatientLite
 import com.mercierlucas.psybudgetcompose.ui.custom.HeaderCustom
 import com.mercierlucas.psybudgetcompose.ui.custom.OutlinedTextFieldCustom
 import com.mercierlucas.psybudgetcompose.ui.custom.SplitLine
-import com.mercierlucas.psybudgetcompose.ui.navigation.Screen
+import com.mercierlucas.psybudgetcompose.navigation.Screen
 import com.mercierlucas.psybudgetcompose.utils.theme.MyBlue
 import com.mercierlucas.psybudgetcompose.utils.theme.MyGreen
 

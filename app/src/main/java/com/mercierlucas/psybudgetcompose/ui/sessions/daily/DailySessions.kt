@@ -44,7 +44,7 @@ import com.mercierlucas.psybudgetcompose.data.custom.SessionsByDayStats
 import com.mercierlucas.psybudgetcompose.ui.custom.HeaderCustom
 import com.mercierlucas.psybudgetcompose.ui.custom.SplitLine
 import com.mercierlucas.psybudgetcompose.ui.custom.datepickers.DatePickerDocked
-import com.mercierlucas.psybudgetcompose.ui.navigation.Screen
+import com.mercierlucas.psybudgetcompose.navigation.Screen
 import com.mercierlucas.psybudgetcompose.utils.theme.MyGreen
 
 import com.mercierlucas.psybudgetcompose.utils.theme.PsyBudgetComposeTheme

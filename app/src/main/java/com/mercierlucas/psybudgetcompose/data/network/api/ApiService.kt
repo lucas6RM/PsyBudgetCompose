@@ -11,6 +11,7 @@ import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseDeleteSession
 import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseSessionByDayDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseSessionCreated
 import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseSessionsDueThisYear
+import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseSessionsThisMonth
 import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseUpdatePatientDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.ResponseUpdateTransactionDto
 import com.mercierlucas.psybudgetcompose.data.network.dtos.SessionDto
@@ -113,6 +114,12 @@ interface ApiService {
         @Path("id") transactionId : Long,
         @Body updateTransactionDto: UpdateTransactionDto
     ) : Response<ResponseUpdateTransactionDto>?
+
+    @GET(ApiRoutes.GET_SESSIONS_THIS_MONTH)
+    suspend fun getSessionsThisMonth(
+        @Header("Authorization") token : String?,
+        @Query("currentDate") currentDate: String
+    ) : Response<ResponseSessionsThisMonth>?
 
 
 

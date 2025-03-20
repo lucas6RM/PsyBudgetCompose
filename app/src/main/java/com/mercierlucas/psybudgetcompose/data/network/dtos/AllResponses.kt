@@ -166,3 +166,22 @@ data class ResponseUpdateTransactionDto(
     @Json(name = "updatedAt")
     val updatedAt: String
 )
+
+//----- Response Get Sessions This Month -----
+
+data class ResponseSessionsThisMonth(
+    @Json(name = "sessionsThisMonth")
+    val sessionsThisMonth: List<SessionsThisMonth>
+)
+
+data class SessionsThisMonth(
+    @Json(name = "id")
+    val id: Int,
+    @Json(name = "isStateAgreementUsed")
+    val isStateAgreementUsed: Boolean,
+    @Json(name = "sessionDate")
+    val sessionDate: String,
+    @Json(name = "transaction")
+    val transaction: TransactionLite
+)
+

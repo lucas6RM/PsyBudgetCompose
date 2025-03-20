@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mercierlucas.feedarticlesjetpack.utils.convertMillisToDate
 import com.mercierlucas.psybudgetcompose.R
 import com.mercierlucas.psybudgetcompose.data.custom.SessionByDayLite
 import com.mercierlucas.psybudgetcompose.data.custom.SessionsByDayStats
@@ -47,6 +48,13 @@ class DailySessionViewModel @Inject constructor(
         viewModelScope.launch{
             _messageSharedFlow.emit(stringId)
         }
+    }
+
+    init {
+
+        val currentDateFormatted = convertMillisToDate(Calendar.getInstance().timeInMillis)
+        getSessionsByDay(currentDateFormatted)
+
     }
 
     fun getSessionsByDay(strDateFormatted : String){

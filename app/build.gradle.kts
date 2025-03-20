@@ -13,6 +13,7 @@ android {
     defaultConfig {
         applicationId = "com.mercierlucas.psybudgetcompose"
         minSdk = 25
+        //noinspection OldTargetApi
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"

@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.mercierlucas.psybudgetcompose.ui.custom.CardButtonMenu
 import com.mercierlucas.psybudgetcompose.ui.custom.HeaderCustom
-import com.mercierlucas.psybudgetcompose.ui.navigation.Screen
+import com.mercierlucas.psybudgetcompose.navigation.Screen
 import com.mercierlucas.psybudgetcompose.utils.DestinationsFromMainMenuTo
 import com.mercierlucas.psybudgetcompose.utils.theme.MyBlue
 
@@ -57,7 +57,8 @@ fun MainMenuScreen(navController: NavHostController, mainMenuViewModel: MainMenu
 
                 DestinationsFromMainMenuTo.STATISTICS -> {}
 
-                DestinationsFromMainMenuTo.SETTINGS -> {}
+                DestinationsFromMainMenuTo.SETTINGS ->
+                    navigate(Screen.SettingsMenu.route)
 
             }
         }
@@ -173,7 +174,7 @@ fun WelcomeBanner(userFirstName: String?,destinationClicked:(DestinationsFromMai
                 modifier = Modifier
                     .size(40.dp)
                     .clickable { destinationClicked.invoke(DestinationsFromMainMenuTo.SETTINGS) },
-                tint = Color.White
+                tint = Color.Black
             )
         }
     }

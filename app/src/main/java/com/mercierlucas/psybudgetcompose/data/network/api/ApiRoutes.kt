@@ -18,5 +18,6 @@ object ApiRoutes {
     const val DELETE_SESSION_BY_ID = "sessions/delete/{id}"
     const val GET_SESSIONS_DUE_THIS_YEAR = "sessions/year"
     const val UPDATE_TRANSACTION_PAID = "transactions/update/{id}"
+    const val GET_SESSIONS_THIS_MONTH = "sessions/month"
 
 }

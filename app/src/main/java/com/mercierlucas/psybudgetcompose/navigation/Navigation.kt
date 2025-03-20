@@ -1,4 +1,4 @@
-package com.mercierlucas.psybudgetcompose.ui.navigation
+package com.mercierlucas.psybudgetcompose.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -27,6 +27,8 @@ import com.mercierlucas.psybudgetcompose.ui.sessions.daily.DailySessionsScreen
 import com.mercierlucas.psybudgetcompose.ui.sessions.details.DetailsSessionScreen
 import com.mercierlucas.psybudgetcompose.ui.sessions.details.DetailsSessionViewModel
 import com.mercierlucas.psybudgetcompose.ui.sessions.menu.MenuSessionScreen
+import com.mercierlucas.psybudgetcompose.ui.settings.SettingsMenuViewModel
+import com.mercierlucas.psybudgetcompose.ui.settings.SettingsMenuScreen
 import com.mercierlucas.psybudgetcompose.ui.splash.SplashScreen
 import com.mercierlucas.psybudgetcompose.ui.splash.SplashViewModel
 import com.mercierlucas.psybudgetcompose.ui.transactions.incomes.IncomesByMonthScreen
@@ -50,6 +52,8 @@ sealed class Screen(val route : String){
     object TransactionsMenu : Screen("transactions_menu" )
     object IncomesByMonth : Screen("incomes_by_month" )
     object ValidatePayments : Screen("validate_payments" )
+    object SettingsMenu : Screen("settings_menu")
+
 
 }
 
@@ -90,7 +94,8 @@ fun MyNavigation(navController: NavHostController = rememberNavController()){
             CreatePatientScreen(navController, createPatientViewModel)
         }
 
-        composable(Screen.PatientById.route + "/{id}",
+        composable(
+            Screen.PatientById.route + "/{id}",
             arguments = listOf(navArgument(name = "id"){
                 type = NavType.LongType
             })
@@ -139,6 +144,10 @@ fun MyNavigation(navController: NavHostController = rememberNavController()){
             ValidatePaymentsScreen(navController, validatePaymentsViewModel)
         }
 
+        composable(Screen.SettingsMenu.route){
+            val settingsMenuViewModel : SettingsMenuViewModel = hiltViewModel()
+            SettingsMenuScreen(navController, settingsMenuViewModel)
+        }
     }
 }
 

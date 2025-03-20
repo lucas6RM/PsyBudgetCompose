@@ -26,3 +26,7 @@ enum class DestinationsFromSessionsMenuTo{
 enum class DestinationsFromTransactionsMenuTo{
     INCOMES_BY_MONTH, VALIDATE_PAYMENTS, TRANSACTIONS_BY_PATIENTS
 }
+
+enum class DestinationsFromSettingsMenuTo{
+    MODIFY_PROFILE, MODIFY_THEME,LOGOUT
+}

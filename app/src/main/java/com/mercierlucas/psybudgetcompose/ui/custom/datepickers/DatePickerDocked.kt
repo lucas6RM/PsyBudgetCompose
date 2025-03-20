@@ -48,9 +48,11 @@ fun DatePickerDocked(
 
     var showDatePicker by remember { mutableStateOf(false) }
     val datePickerState = rememberDatePickerState(initialSelectedDateMillis = currentDateInMillis)
-    val selectedDate = datePickerState.selectedDateMillis?.let {
-        convertMillisToDate(it)
-    } ?: ""
+    var selectedDate by remember {
+        mutableStateOf(datePickerState.selectedDateMillis?.let {
+            convertMillisToDate(it)
+        } ?: "")
+    }
 
     Box() {
         OutlinedTextField(
@@ -67,14 +69,16 @@ fun DatePickerDocked(
                 }
             },
             modifier = modifier
-                //.fillMaxWidth()
                 .wrapContentWidth()
                 .height(64.dp)
         )
 
         if (showDatePicker) {
             Popup(
-                onDismissRequest = { showDatePicker = false },
+                onDismissRequest = {
+                    showDatePicker = false
+                    onDateSelected.invoke(selectedDate)
+                                   },
                 alignment = Alignment.TopStart
             ) {
                 Box(

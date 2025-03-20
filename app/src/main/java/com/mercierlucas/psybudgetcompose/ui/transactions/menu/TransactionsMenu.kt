@@ -17,7 +17,7 @@ import androidx.navigation.NavHostController
 import com.mercierlucas.psybudgetcompose.R
 import com.mercierlucas.psybudgetcompose.ui.custom.CardButtonMenu
 import com.mercierlucas.psybudgetcompose.ui.custom.HeaderCustom
-import com.mercierlucas.psybudgetcompose.ui.navigation.Screen
+import com.mercierlucas.psybudgetcompose.navigation.Screen
 import com.mercierlucas.psybudgetcompose.utils.DestinationsFromTransactionsMenuTo
 import com.mercierlucas.psybudgetcompose.utils.theme.PsyBudgetComposeTheme
 

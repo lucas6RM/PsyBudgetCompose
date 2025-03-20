@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.mercierlucas.psybudgetcompose.data.model.PatientLite
+import com.mercierlucas.psybudgetcompose.utils.PaymentMethod
 import kotlin.enums.EnumEntries
 
 @Composable
@@ -99,14 +100,14 @@ fun DropDownPatientsInTherapyList(
 }
 
 @Composable
-fun <T : Enum<T>> DropDownEnumString(
+fun DropDownEnumString(
     titleList: String = "List",
-    entries: EnumEntries<T>,
-    onPaymentMethodSelected : (String) -> Unit
-    ) {
+    entries: EnumEntries<PaymentMethod>,
+    onPaymentMethodSelected: (String) -> Unit
+) {
 
-    val strEnumList = entries.map { it.toString() }
 
+    val strEnumList = entries.map { it.str }
 
     val isDropDownExpanded = remember {
         mutableStateOf(false)

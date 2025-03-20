@@ -73,5 +73,19 @@
     <string name="confirm_payment_validation">Do you really want to validate this payment ?</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="transaction_not_found">Transaction not found</string>
+    <string name="logout">Logout User</string>
+    <string name="modify_theme">Modify App theme</string>
+    <string name="modify_profile">Modify profile infos</string>
+    <string name="settings_menu">Settings Menu</string>
+    <string name="select_month">Select full month from date :</string>
+    <string name="number_of_agreements_used">Number of agreements used : </string>
+    <string name="credit_card">Credit\ncard : </string>
+    <string name="bank_check">Bank\ncheck : </string>
+    <string name="bank_transfer">Bank\ntransfer : </string>
+    <string name="cash">Cash : </string>
+    <string name="third_party_payer">Third-party\npayer : </string>
+    <string name="total_incomes">Total\nincomes : </string>
+    <string name="paid">"paid : "</string>
+    <string name="due">"due : "</string>
 
 </resources>
